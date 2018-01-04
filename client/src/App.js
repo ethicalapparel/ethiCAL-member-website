@@ -24,8 +24,9 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <PrivateRoute exact path="/" component={Dashboard}/>
+          <PrivateRoute path="/home" component={Dashboard}/>
           <Route path="/login" component={Login}/>
+          <Redirect to="/home"/>
         </div>
       </Router>
     );

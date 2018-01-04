@@ -1,6 +1,6 @@
 import axios from 'axios';
 const auth = {
-  isAuthenticated: true,
+  isAuthenticated: false,
   authenticate(secret, cb) {
     this.isAuthenticated = true;
     console.log(secret);

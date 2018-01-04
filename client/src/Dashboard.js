@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Menu } from 'semantic-ui-react';
 import Calendar from './components/Calendar.js';
-import Updates from './components/';
-import
+import Updates from './components/Updates.js';
 import {
   BrowserRouter as Router,
   Route,
@@ -11,21 +10,6 @@ import {
   Redirect,
   withRouter
 } from 'react-router-dom';
-
-class Home extends Component {
-  state = {
-      data: ["Initial Data": "HI"]
-  };
-
-  componentDidMount() {
-    axios.get('/asana/calendar')
-      .then((response) => this.setState({data: response.data}));
-  };
-
-  render() {
-    return (<h1 style:"text-align: center"> Welcome Back</h1>);
-  };
-};
 
 class Dashboard extends Component {
   state = {
@@ -45,7 +29,7 @@ class Dashboard extends Component {
     return (
       <div>
       <Menu secondary>
-        <Link to='/'>
+        <Link to={match.url}>
         <Menu.Item
           name='Home'
           active={activeItem === 'Home'}
@@ -55,7 +39,7 @@ class Dashboard extends Component {
         </Menu.Item>
         </Link>
 
-        <Link to='/calendar'>
+        <Link to={`${match.url}/calendar`}>
           <Menu.Item
             name='Calendar'
             active={activeItem === 'Calendar'}
@@ -65,7 +49,7 @@ class Dashboard extends Component {
           </Menu.Item>
         </Link>
 
-        <Link to='/updates'>
+        <Link to={`${match.url}/updates`}>
           <Menu.Item
             name='Team Updates'
             active={activeItem === 'Team Updates'}
@@ -75,12 +59,27 @@ class Dashboard extends Component {
           </Menu.Item>
         </Link>
       </Menu>
-      <Route exact path='/' component={Home}/>
-      <Route path="/calendar" component={Calendar}/>
-      <Route path="/calendar" component={Calendar}/>
+      <Route exact path={match.url} component={Home}/>
+      <Route path={`${match.url}/calendar`} component={Calendar}/>
+      <Route path={`${match.url}/updates`} component={Updates}/>
       </div>
 
     );
+  }
+}
+
+class Home extends Component {
+  state = {
+      data: ["Initial Data": "HI"]
+  };
+
+  componentDidMount() {
+    axios.get('/asana/calendar')
+      .then((response) => this.setState({data: response.data}));
+  };
+
+  render() {
+    return (<h1> WELCOME BACK</h1>);
   };
 }
 
