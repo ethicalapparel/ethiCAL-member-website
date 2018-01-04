@@ -19,7 +19,7 @@ npm install
 # Launching
 
 **Get an Asana Personal Access Token (PAT)**
- * Go to [My Profile Setttings](https://asana.com/guide/help/fundamentals/settings)
+ * Go to [My Profile Settings](https://app.asana.com/-/user_settings)
  * Open the **Apps tab**
  * Click **Manage Developer Apps**
  * Click **+ Create New Personal Access Token**
@@ -41,3 +41,5 @@ PORT=3001 node bin/www
 cd /path/to/server
 npm start
 ```
+
+Go to [http://localhost:3000]
