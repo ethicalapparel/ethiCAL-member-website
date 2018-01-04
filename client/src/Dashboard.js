@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Container } from 'semantic-ui-react';
 import Calendar from './components/Calendar.js';
 import Updates from './components/Updates.js';
 import {
@@ -28,7 +28,7 @@ class Dashboard extends Component {
     // </div>
     return (
       <div>
-      <Menu secondary>
+      <Menu secondary size='large' pointing>
         <Link to={match.url}>
         <Menu.Item
           name='Home'
@@ -59,9 +59,11 @@ class Dashboard extends Component {
           </Menu.Item>
         </Link>
       </Menu>
-      <Route exact path={match.url} component={Home}/>
-      <Route path={`${match.url}/calendar`} component={Calendar}/>
-      <Route path={`${match.url}/updates`} component={Updates}/>
+      <Container textAlign='center'>
+        <Route exact path={match.url} component={Home}/>
+        <Route path={`${match.url}/calendar`} component={Calendar}/>
+        <Route path={`${match.url}/updates`} component={Updates}/>
+      </Container>
       </div>
 
     );
