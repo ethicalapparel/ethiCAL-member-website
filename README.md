@@ -2,7 +2,7 @@
 
 # Installation
 
-Download (Node.JS)[https://nodejs.org/en/]
+Download [Node.JS](https://nodejs.org/en/)
 
 Installing client dependencies
 ```
@@ -42,4 +42,4 @@ cd /path/to/server
 npm start
 ```
 
-Go to (localhost:3000)[http://localhost:3000]
+Go to [localhost:3000](http://localhost:3000)
