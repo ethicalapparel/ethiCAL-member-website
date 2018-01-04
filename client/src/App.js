@@ -80,7 +80,7 @@ class Login extends React.Component {
       <div>
         <Form onSubmit={this.login}>
           <Form.Group>
-            <Form.Input placeholder='Secret' name='submittedSecret' value={this.state.submittedSecret} onChange={this.handleChange}/>
+            <Form.Input placeholder='Type in Anything' name='submittedSecret' value={this.state.submittedSecret} onChange={this.handleChange}/>
             <Form.Button content='Login'/>
           </Form.Group>
         </Form>

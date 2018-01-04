@@ -69,15 +69,6 @@ class Dashboard extends Component {
 }
 
 class Home extends Component {
-  state = {
-      data: ["Initial Data": "HI"]
-  };
-
-  componentDidMount() {
-    axios.get('/asana/calendar')
-      .then((response) => this.setState({data: response.data}));
-  };
-
   render() {
     return (<h1> WELCOME BACK</h1>);
   };
