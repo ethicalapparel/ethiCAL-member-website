@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class Updates extends Component {
+class Feedback extends Component {
   state = {
       data: [
         {title: "Web Team Updates", updates: ["Update 1", "Update 2"]},
@@ -12,10 +12,10 @@ class Updates extends Component {
   render() {
     return (
       <div>
-        <h1> Updates Go Here </h1>
+        <h1> Hello, World </h1>
       </div>
     );
   };
 };
 
-export default Updates;
+export default Feedback;

@@ -3,6 +3,10 @@ import axios from 'axios';
 import { Menu, Container } from 'semantic-ui-react';
 import Calendar from './components/Calendar.js';
 import Updates from './components/Updates.js';
+import Feedback from './components/Feedback.js';
+import Ideas from './components/Ideas.js';
+import General from './components/General.js';
+
 import {
   BrowserRouter as Router,
   Route,
@@ -39,6 +43,16 @@ class Dashboard extends Component {
         </Menu.Item>
         </Link>
 
+        <Link to={`${match.url}/general`}>
+          <Menu.Item
+            name='General Info'
+            active={activeItem === 'General Info'}
+            onClick={this.handleItemClick}
+          >
+            General Info
+          </Menu.Item>
+        </Link>
+
         <Link to={`${match.url}/calendar`}>
           <Menu.Item
             name='Calendar'
@@ -58,11 +72,32 @@ class Dashboard extends Component {
             Team Updates
           </Menu.Item>
         </Link>
+        <Link to={`${match.url}/ideas`}>
+          <Menu.Item
+            name='Ideas Thread'
+            active={activeItem === 'Ideas Thread'}
+            onClick={this.handleItemClick}
+          >
+            Ideas Thread
+          </Menu.Item>
+        </Link>
+        <Link to={`${match.url}/feedback`}>
+          <Menu.Item
+            name='Feedback Box'
+            active={activeItem === 'Feedback Box'}
+            onClick={this.handleItemClick}
+          >
+            Feedback Box
+          </Menu.Item>
+        </Link>
       </Menu>
       <Container textAlign='center'>
         <Route exact path={match.url} component={Home}/>
         <Route path={`${match.url}/calendar`} component={Calendar}/>
         <Route path={`${match.url}/updates`} component={Updates}/>
+        <Route path={`${match.url}/general`} component={General}/>
+        <Route path={`${match.url}/ideas`} component={Ideas}/>
+        <Route path={`${match.url}/feedback`} component={Feedback}/>
       </Container>
       </div>
 
@@ -71,6 +106,7 @@ class Dashboard extends Component {
 }
 
 class Home extends Component {
+  state = {data: ["Hello", "Bye"]}
   render() {
     return (<h1> WELCOME BACK</h1>);
   };
