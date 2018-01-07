@@ -50,12 +50,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 class Login extends React.Component {
   state = {
     redirectToReferrer: false,
-    submittedSecret: ''
+    submittedSecret: '',
+    loginFailed: false,
   }
 
   login = () => {
-    auth.authenticate(this.state.submittedSecret, () => {
-      this.setState({ redirectToReferrer: true });
+    auth.authenticate(this.state.submittedSecret, (auth) => {
+      auth ? this.setState({ redirectToReferrer: true }) : this.setState({loginFailed: true});
     });
   }
 
@@ -84,6 +85,9 @@ class Login extends React.Component {
             <Form.Button content='Login'/>
           </Form.Group>
         </Form>
+        <div>
+        {this.state.loginFailed && "Login Failed"}
+        </div>
 
       </div>
     )

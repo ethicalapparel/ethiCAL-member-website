@@ -55,15 +55,23 @@ var router = express.Router();
 // });
 //
 /* GET home page. */
-router.get('/login', function(req, res, next) {
+router.post('/login', function(req, res, next) {
   // var oauth2Client = new OAuth2(
   //   YOUR_CLIENT_ID, j
   //   YOUR_CLIENT_SECRET,
   //   "http://localhost:3001/asana"
   // );
   //var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
-  console.log(req.secret);
-  res.json({authenticated: True});
+  var secret = req.body.loginSecret;
+  /* if (secret === "ethiCAL rules") { */
+  if (true) {
+    res.json({authenticated: true});
+    res.status(200);
+  } else {
+    var err = new Error('Incorrect Password');
+    err.status = 500;
+    next(err);
+  }
 });
 // router.get('')
 // // Define routes.
