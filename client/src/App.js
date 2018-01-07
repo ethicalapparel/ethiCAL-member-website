@@ -79,7 +79,7 @@ class Login extends React.Component {
     // />
     return (
       <Grid container centered>
-        <Segment compact secondary textAlign='center' style={{marginTop: '40vh'}}>
+        <Segment secondary textAlign='center' style={{marginTop: '40vh'}}>
           <Header> EthiCAL Member Portal </Header>
           <Form onSubmit={this.login}>
             <Form.Group>

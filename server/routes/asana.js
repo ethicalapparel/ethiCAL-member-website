@@ -11,7 +11,6 @@ var client = axios.create({
 });
 
 /* Gets list of events from club calendar*/
-//?opt_expand=due_on
 router.get('/calendar', function(req, res, next) {
   client.get('/projects/509572030520060/tasks?opt_expand=due_on')
     .then(function(cliResponse) {
