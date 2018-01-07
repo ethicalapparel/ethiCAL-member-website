@@ -1,4 +1,4 @@
-// Still in development- will handle any authentication with google...
+// Still in development- will handle any authentication with google... Can mostly ignore this stuff
 var express = require('express');
 var router = express.Router();
 
@@ -64,7 +64,7 @@ router.post('/login', function(req, res, next) {
   //var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
   var secret = req.body.loginSecret;
   /* if (secret === "ethiCAL rules") { */
-  if (true) {
+  if (secret === "ethiCAL rules") {
     res.json({authenticated: true});
     res.status(200);
   } else {

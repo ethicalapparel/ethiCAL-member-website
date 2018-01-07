@@ -3,16 +3,19 @@ import axios from 'axios';
 
 class Ideas extends Component {
   state = {
-      data: [
-        {title: "Web Team Updates", updates: ["Update 1", "Update 2"]},
-        {title: "Sales Updates", updates: ["Update 1", "Update 2"]}
-        ]
-      };
+      data: []
+  };
+
+  componentDidMount() {
+    axios.get('/asana/ideas')
+      .then((response) => this.setState({data: response.data}));
+  };
 
   render() {
     return (
       <div>
         <h1> Ideas Thread Goes Here </h1>
+        <h1> {JSON.stringify(this.state.data)} </h1>
       </div>
     );
   };

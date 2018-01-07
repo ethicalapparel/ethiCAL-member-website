@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Form } from 'semantic-ui-react';
+import { Form, Segment, Header, Grid } from 'semantic-ui-react';
 import auth from './Auth.js';
 import Dashboard from './Dashboard.js';
 import {
@@ -78,18 +78,21 @@ class Login extends React.Component {
     //   onFailure={responseGoogle}
     // />
     return (
-      <div>
-        <Form onSubmit={this.login}>
-          <Form.Group>
-            <Form.Input placeholder='Type in Anything' name='submittedSecret' value={this.state.submittedSecret} onChange={this.handleChange}/>
-            <Form.Button content='Login'/>
-          </Form.Group>
-        </Form>
-        <div>
-        {this.state.loginFailed && "Login Failed"}
-        </div>
+      <Grid container centered>
+        <Segment compact secondary textAlign='center' style={{marginTop: '40vh'}}>
+          <Header> EthiCAL Member Portal </Header>
+          <Form onSubmit={this.login}>
+            <Form.Group>
+              <Form.Input placeholder='Type in Anything' name='submittedSecret' value={this.state.submittedSecret} onChange={this.handleChange}/>
+              <Form.Button content='Login'/>
+            </Form.Group>
+          </Form>
+          <div>
+          {this.state.loginFailed && "Login Failed"}
+          </div>
 
-      </div>
+        </Segment>
+      </Grid>
     )
   }
 }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {Divider, Header} from 'semantic-ui-react';
+
 
 class General extends Component {
   state = {
@@ -9,10 +11,17 @@ class General extends Component {
         ]
       };
 
+  componentDidMount() {
+    axios.get('/asana/general')
+      .then((response) => this.setState({data: response.data.filter((entry) => (entry.tags.length > 0))}));
+  };
+  // For now, can simply filter by an entry containing tags...
+
   render() {
     return (
       <div>
-        <h1> General Information </h1>
+        <h1> General Info </h1>
+        <div> {JSON.stringify(this.state.data, null, 2)}</div>
       </div>
     );
   };

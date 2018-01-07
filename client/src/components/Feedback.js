@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Form } from 'semantic-ui-react';
+import { Form, Grid, Header } from 'semantic-ui-react';
 
 class Feedback extends Component {
   state = {
     feedbackSubmitted: false,
-    submission: ''
+    feedback: '',
+    description: ''
   };
 
 
   submit = () => {
-    axios.post('asana/submitFeedback', this.state.submission);
-    this.setState({feedbackSubmitted: true, submission: ''});
+    axios.post('/asana/submitFeedback',
+      {name: this.state.feedback, notes: this.state.description});
+    this.setState({feedbackSubmitted: true, feedback: '', description: ''});
   };
 
 
@@ -19,17 +21,24 @@ class Feedback extends Component {
 
   render() {
     return (
-      <div>
-        <Form size='large' onSubmit={this.submit}>
-          <Form.Group>
-            <Form.Input placeholder='Submission' name='submission' value={this.state.submission} onChange={this.handleChange}/>
-            <Form.Button content='Submit'/>
-          </Form.Group>
+      <Grid centered columns={1} style={{marginTop: '20vh'}}>
+        <Form onSubmit={this.submit}>
+          <Header as='h1'> Give Feedback </Header>
+          <label> pls do not spam </label>
+          <Form.Field>
+            <Form.Input placeholder='Feedback' name='feedback' value={this.state.feedback} onChange={this.handleChange}/>
+          </Form.Field>
+
+          <Form.Field>
+            <Form.TextArea placeholder='Description' name='description' value={this.state.description} onChange={this.handleChange}/>
+          </Form.Field>
+
+          <Form.Button content='Submit'/>
           <div>
           {this.state.feedbackSubmitted && "Thank you for your submission!"}
           </div>
         </Form>
-      </div>
+      </Grid>
     );
   };
 };

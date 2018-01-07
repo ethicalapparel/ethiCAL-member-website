@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Menu, Container } from 'semantic-ui-react';
+import { Menu, Container, Header } from 'semantic-ui-react';
 import Calendar from './components/Calendar.js';
 import Updates from './components/Updates.js';
 import Feedback from './components/Feedback.js';
@@ -108,7 +108,11 @@ class Dashboard extends Component {
 class Home extends Component {
   state = {data: ["Hello", "Bye"]}
   render() {
-    return (<h1> WELCOME BACK</h1>);
+    return (<Header
+            as='h1'
+            content='Welcome Back'
+            style={{ fontSize: '4em', fontWeight: 'normal', marginBottom: 0, marginTop: '2em' }}
+          />);
   };
 }
 
