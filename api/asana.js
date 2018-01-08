@@ -19,6 +19,7 @@ router.get('/calendar', function(req, res, next) {
 });
 
 /* A list of ideas. */
+/* /projects/432354090717462 */
 router.get('/ideas', function(req, res, next) {
   client.get('/projects/432354090717462/tasks?opt_expand=notes,created_at')
     .then(function(cliResponse) {

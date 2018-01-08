@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 import { Form, Segment, Header, Grid } from 'semantic-ui-react';
 import auth from './Auth.js';

@@ -1,1 +1,5 @@
 /* General Info Page CSS Goes Here. */
+.main-header {
+  font-size: 3em !important;
+  color: green !important;
+}

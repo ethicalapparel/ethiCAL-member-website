@@ -5,7 +5,10 @@ import './index.css';
 
 const Info = (props) => {
   const entries = props.data.map(entry => (
-      <div> <h2> {entry.name} </h2> <p> {entry.description} </p> </div>
+      <div>
+        <Header as='h2'> {entry.name} </Header>
+        <p> {entry.description} </p>
+      </div>
     )
   );
   return(
@@ -14,6 +17,8 @@ const Info = (props) => {
     </div>
   );
 }
+
+
 class General extends Component {
   state = {
       data: [
@@ -25,7 +30,7 @@ class General extends Component {
   getData() {
     axios.get('/asana/general')
       .then((response) => this.setState({data: response.data}));
-  }
+  };
 
   componentDidMount() {
     this.getData();
@@ -40,7 +45,7 @@ class General extends Component {
   render() {
     return (
       <div>
-        <h1> General Info </h1>
+        <Header as='h1' className='main-header'> General Info </Header>
         <Info data={this.state.data}/>
       </div>
     );

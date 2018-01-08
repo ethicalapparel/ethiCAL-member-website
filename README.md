@@ -6,13 +6,13 @@ Download [Node.JS](https://nodejs.org/en/)
 
 Installing client dependencies
 ```
-cd /path/to/client
+cd client
 npm install
 ```
 
 Installing server dependencies
 ```
-cd /path/to/server
+cd ..
 npm install
 ```
 
