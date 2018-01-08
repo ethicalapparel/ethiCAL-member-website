@@ -47,3 +47,6 @@ You can type in any password in the login screen
 
 http://localhost:3000/home/calendar should look like this:
 ![pic](initial.png)
+
+# Deployment
+Pushing to the deploy branch would redeploy the application on heroku
