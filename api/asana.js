@@ -30,15 +30,28 @@ router.get('/ideas', function(req, res, next) {
 router.get('/updates', function(req, res, next) {
   client.get('/projects/466398499960068/tasks?opt_expand=custom_fields,notes,tags')
     .then(function(cliResponse) {
-      res.json(cliResponse.data.data);
+      res.json(
+        cliResponse.data.data.filter(elem => hasTag(elem.tags, "member website"))
+          .map(elem => {
+            //console.log(elem);
+            return {name: elem.name,
+              description: elem.notes,
+              team: getCustomField(elem.custom_fields, "Team")};
+          })
+      );
     });
 });
 
 /* Get general info about the club. */
 router.get('/general', function(req, res, next) {
   client.get('/projects/345691809314815/tasks?opt_expand=notes,tags')
-    .then(function(cliResponse) {
-      res.json(cliResponse.data.data);
+    .then((cliResponse) => {
+      res.json(
+        cliResponse.data.data.filter((elem) => {
+          return hasTag(elem.tags, "member website");
+          }
+        ).map(elem => {return {name: elem.name, description: elem.notes};})
+      );
     });
 });
 
@@ -60,6 +73,18 @@ router.post('/submitFeedback', function(req, res, next) {
     }
   );
 });
+
+hasTag = (tags, tagName) => {
+  var tagNames = tags.map(tag => tag.name);
+  return tagNames && tagNames.length ? tagNames.includes(tagName) : false;
+};
+
+getCustomField = (customFields, fieldName) => {
+  var cf = customFields.filter(field => field.name==fieldName)
+  return cf && cf.length && cf[0].enum_value ? cf[0].enum_value.name : undefined;
+};
+
+
 
 
 

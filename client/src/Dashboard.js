@@ -43,15 +43,6 @@ class Dashboard extends Component {
         </Menu.Item>
         </Link>
 
-        <Link to={`${match.url}/general`}>
-          <Menu.Item
-            name='General Info'
-            active={activeItem === 'General Info'}
-            onClick={this.handleItemClick}
-          >
-            General Info
-          </Menu.Item>
-        </Link>
 
         <Link to={`${match.url}/calendar`}>
           <Menu.Item
@@ -72,6 +63,17 @@ class Dashboard extends Component {
             Team Updates
           </Menu.Item>
         </Link>
+
+        <Link to={`${match.url}/general`}>
+          <Menu.Item
+            name='General Info'
+            active={activeItem === 'General Info'}
+            onClick={this.handleItemClick}
+          >
+            General Info
+          </Menu.Item>
+        </Link>
+        
         <Link to={`${match.url}/ideas`}>
           <Menu.Item
             name='Ideas Thread'
