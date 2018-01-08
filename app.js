@@ -5,9 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
-var asana = require('./routes/asana');
-var auth = require('./routes/auth');
+var asana = require('./api/asana');
+var auth = require('./api/auth');
 
 var app = express();
 
