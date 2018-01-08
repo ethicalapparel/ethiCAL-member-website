@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();
 
+const ETHICAL_SECRET = process.env.ETHICAL_SECRET;
 // var google = require('googleapis');
 // var OAuth2 = google.auth.OAuth2;
 //
@@ -64,7 +65,7 @@ router.post('/login', function(req, res, next) {
   //var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
   var secret = req.body.loginSecret;
   /* if (secret === "ethiCAL rules") { */
-  if (true) {
+  if (ETHICAL_SECRET && secret === ETHICAL_SECRET) {
     res.json({authenticated: true});
     res.status(200);
   } else {

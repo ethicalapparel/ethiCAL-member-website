@@ -30,15 +30,14 @@ Add Environment variables
 export ASANA_PAT={Insert Asana Personal Access Token From Above Here}
 ```
 
-Go into the server folder and run launch command on port 3001
+Go into the server folder and run launch command on port 5000
 ```
-cd /path/to/server
-PORT=3001 node bin/www
+npm start
 ```
 
 **Open a new terminal window** and go into the client folder and run npm start
 ```
-cd /path/to/server
+cd client
 npm start
 ```
 
