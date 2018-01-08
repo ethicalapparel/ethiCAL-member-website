@@ -2,10 +2,9 @@ import axios from 'axios';
 const auth = {
   isAuthenticated: false,
   authenticate(secret, cb) {
-    //this.isAuthenticated = true;
     axios.post('/auth/login', {loginSecret: secret})
       .then(() => (this.isAuthenticated=true));
-    setTimeout(() => cb(this.isAuthenticated), 100); // fake async
+    cb(this.isAuthenticated)
   },
   signout(cb) {
     this.isAuthenticated = false

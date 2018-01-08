@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Menu, Container, Header } from 'semantic-ui-react';
-import Calendar from './components/Calendar.js';
-import Updates from './components/Updates.js';
-import Feedback from './components/Feedback.js';
-import Ideas from './components/Ideas.js';
-import General from './components/General.js';
+import Calendar from './components/Calendar';
+import Updates from './components/Updates';
+import Feedback from './components/Feedback';
+import Ideas from './components/Ideas';
+import General from './components/General';
 
 import {
   BrowserRouter as Router,
