@@ -10,7 +10,7 @@ cd client
 npm install
 ```
 
-Installing server dependencies
+Installing server dependencies in the base directory
 ```
 cd ..
 npm install
@@ -30,7 +30,7 @@ Add Environment variables
 export ASANA_PAT={Insert Asana Personal Access Token From Above Here}
 ```
 
-Go into the server folder and run launch command on port 5000
+In the base directory (Current dir if you've been following along) and run launch command on port 5000
 ```
 npm start
 ```
