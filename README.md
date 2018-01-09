@@ -29,6 +29,7 @@ Add Environment variables
 ```
 export ASANA_PAT={Insert Asana Personal Access Token From Above Here}
 ```
+**Note**: Do **not** include the brackets when inserting your asana Personal Access Token.
 
 In the base directory (Current dir if you've been following along) and run launch command on port 5000
 ```
