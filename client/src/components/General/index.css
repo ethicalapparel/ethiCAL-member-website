@@ -3,3 +3,48 @@
   font-size: 3em !important;
   color: green !important;
 }
+
+h2.ui.header {
+	color: white;
+}
+
+p {
+	color: #7b7b7b;
+	margin-left: 20px;
+}
+
+.information {
+	max-width: 100%;
+}
+
+
+.information-bullets {
+	text-align: left;
+	width: 80%;
+	margin: auto;
+}
+
+.information-bullets div div {
+	padding: 20px;
+	margin-bottom: 10px;
+	background: #c8dde1;
+	border-radius: 20px;
+}
+
+.cover-photo img{
+	max-width: 100%;
+}
+
+/*
+	width: 90%;
+	
+	margin-bottom: 10px;
+	text-align: left;
+	margin-bottom: 10px;
+	background: #c8dde1;
+	border-radius: 20px;
+
+	margin: auto;
+	
+*/
+
