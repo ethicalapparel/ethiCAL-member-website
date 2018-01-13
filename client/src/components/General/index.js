@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Divider, Header} from 'semantic-ui-react';
 import './index.css';
+import Image from './res/img/general-info.JPG';
 
 const Info = (props) => {
   const entries = props.data.map(entry => (
@@ -44,9 +45,14 @@ class General extends Component {
 
   render() {
     return (
-      <div>
+      <div className="information">
+        <div className="cover-photo">
+          <img src={Image}/>
+        </div>
         <Header as='h1' className='main-header'> General Info </Header>
-        <Info data={this.state.data}/>
+        <div className="information-bullets">
+          <Info data={this.state.data}/>
+        </div>
       </div>
     );
   };
