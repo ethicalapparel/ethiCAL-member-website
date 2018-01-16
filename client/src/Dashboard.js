@@ -73,7 +73,7 @@ class Dashboard extends Component {
             General Info
           </Menu.Item>
         </Link>
-        
+
         <Link to={`${match.url}/ideas`}>
           <Menu.Item
             name='Ideas Thread'
@@ -93,7 +93,7 @@ class Dashboard extends Component {
           </Menu.Item>
         </Link>
       </Menu>
-      <Container textAlign='center'>
+      <Container textAlign='center' fluid>
         <Route exact path={match.url} component={Home}/>
         <Route path={`${match.url}/calendar`} component={Calendar}/>
         <Route path={`${match.url}/updates`} component={Updates}/>
