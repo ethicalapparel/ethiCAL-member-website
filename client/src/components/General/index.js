@@ -6,16 +6,17 @@ import imageFile from './res/img/general-info.JPG';
 
 const Info = (props) => {
   const entries = props.data.map(entry => (
+    <div>
       <div>
         <Header as='h2'> {entry.name} </Header>
         <p> {entry.description} </p>
       </div>
+    </div>
     )
   );
+  const loading = <Loader inline small centered active/>
   return(
-    <div>
-      {entries}
-    </div>
+      entries && entries.length ? <div> {entries} </div>: loading
   );
 }
 
@@ -41,7 +42,6 @@ class General extends Component {
   // For now, can simply filter by an entry containing tags...
 
   render() {
-    if (this.state.data && this.state.data.length) {
       return (
         <div className="information">
           <div className="cover-photo">
@@ -53,9 +53,6 @@ class General extends Component {
           </div>
         </div>
       );
-    } else {
-      return <Loader active/>;
-    }
   };
 };
 
