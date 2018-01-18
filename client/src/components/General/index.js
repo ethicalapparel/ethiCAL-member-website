@@ -45,11 +45,13 @@ class General extends Component {
 
   render() {
     return (
-      <div className="information">
+      <div className="container">
         <div className="cover-photo">
-          <img src={Image}/>
+          <div className="overlay">
+            <img src={Image}/>
+          </div>
+          <Header as='h1' className='main-header'> General Info </Header>
         </div>
-        <Header as='h1' className='main-header'> General Info </Header>
         <div className="information-bullets">
           <Info data={this.state.data}/>
         </div>
