@@ -1,6 +1,6 @@
 import axios from 'axios';
 const auth = {
-  isAuthenticated: true, // Set to true in development
+  isAuthenticated: false, // Set to true in development
   authenticate(secret, cb) {
     axios.post('/auth/login', {loginSecret: secret})
       .then(() => (this.isAuthenticated=true));
