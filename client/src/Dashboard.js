@@ -6,6 +6,7 @@ import Updates from './components/Updates';
 import Feedback from './components/Feedback';
 import Ideas from './components/Ideas';
 import General from './components/General';
+import auth from './Auth.js';
 
 import {
   BrowserRouter as Router,
@@ -26,13 +27,15 @@ class Dashboard extends Component {
   render() {
     var {activeItem} = this.state;
     var match = this.props.match;
-    console.log(match);
+    var {username} = auth;
+
+    console.log(username);
     // <div>
     //   <Route path="/home" component={Home}/>
     // </div>
     return (
       <div>
-      <Menu secondary size='large' pointing>
+      <Menu secondary size='large' pointing fixed>
         <Link to={match.url}>
         <Menu.Item
           name='Home'
@@ -92,6 +95,11 @@ class Dashboard extends Component {
             Feedback Box
           </Menu.Item>
         </Link>
+        <Menu.Menu position='right'>
+          <Menu.Item>
+            {username}
+          </Menu.Item>
+        </Menu.Menu>
       </Menu>
       <Container textAlign='center' fluid>
         <Route exact path={match.url} component={Home}/>
@@ -108,13 +116,12 @@ class Dashboard extends Component {
 }
 
 class Home extends Component {
-  state = {data: ["Hello", "Bye"]}
   render() {
+    var {username} = auth;
     return (<Header
             as='h1'
-            content='Welcome Back'
             style={{ fontSize: '4em', fontWeight: 'normal', marginBottom: 0, marginTop: '2em' }}
-          />);
+          > {"Welcome Back " + username.split(" ")[0]} </Header>);
   };
 }
 

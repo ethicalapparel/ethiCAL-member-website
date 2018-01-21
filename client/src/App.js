@@ -19,6 +19,7 @@ const responseGoogle = (response) => {
   console.log(response);
 }
 
+const RedirHome = (props) => (<Redirect to='/home'/>);
 
 class App extends Component {
   render() {
@@ -27,7 +28,7 @@ class App extends Component {
         <div>
           <PrivateRoute path="/home" component={Dashboard}/>
           <Route path="/login" component={Login}/>
-          <Redirect to="/home"/>
+          <Route exact path="/" component={RedirHome}/>
         </div>
       </Router>
     );
@@ -52,11 +53,12 @@ class Login extends React.Component {
   state = {
     redirectToReferrer: false,
     submittedSecret: '',
+    name: '',
     loginFailed: false,
   }
 
   login = () => {
-    auth.authenticate(this.state.submittedSecret, (auth) => {
+    auth.authenticate(this.state.name, this.state.submittedSecret, (auth) => {
       auth ? this.setState({ redirectToReferrer: true }) : this.setState({loginFailed: true});
     });
   }
@@ -65,10 +67,9 @@ class Login extends React.Component {
 
   render() {
     const { from } = this.props.location.state || { from: { pathname: '/' } }
-
     if (this.state.redirectToReferrer) {
       return (
-        <Redirect to={from}/>
+        <Redirect to={from} />
       )
     }
     /* For Google Authentication... */
@@ -80,13 +81,16 @@ class Login extends React.Component {
     // />
     return (
       <Grid container centered>
-        <Segment secondary textAlign='center' style={{marginTop: '40vh'}}>
+        <Segment secondary textAlign='center' style={{marginTop: '35vh', width: '30%'}}>
           <Header> EthiCAL Member Portal </Header>
           <Form onSubmit={this.login}>
-            <Form.Group>
-              <Form.Input placeholder='Type in Anything' name='submittedSecret' value={this.state.submittedSecret} onChange={this.handleChange}/>
+              <Form.Field>
+                <Form.Input placeholder='Name' name='name' value={this.state.name} onChange={this.handleChange} />
+              </Form.Field>
+              <Form.Field>
+                <Form.Input placeholder='Secret Key' name='submittedSecret' value={this.state.submittedSecret} onChange={this.handleChange} type='password'/>
+              </Form.Field>
               <Form.Button content='Login'/>
-            </Form.Group>
           </Form>
           <div>
           {this.state.loginFailed && "Login Failed"}
