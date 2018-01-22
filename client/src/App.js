@@ -12,12 +12,12 @@ import {
   Redirect,
   withRouter
 } from 'react-router-dom';
-import { GoogleLogin } from 'react-google-login';
-
-
-const responseGoogle = (response) => {
-  console.log(response);
-}
+// import { GoogleLogin } from 'react-google-login';
+//
+//
+// const responseGoogle = (response) => {
+//   console.log(response);
+// }
 
 const RedirHome = (props) => (<Redirect to='/home'/>);
 
