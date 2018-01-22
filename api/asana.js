@@ -30,7 +30,7 @@ router.get('/ideas', function(req, res, next) {
             return {idea: elem.name,
               description: elem.notes,
               memberName: getCustomField(elem.custom_fields, "Member"),
-              created_at: elem.created_at
+              created_at: elem.created_at,
               id: elem.id
               };
             }
