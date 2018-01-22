@@ -3,7 +3,11 @@ import {Card, Header, Loader, Button, Modal, Container} from 'semantic-ui-react'
 import axios from 'axios';
 import './index.css';
 
-
+class IdeaModal extends Component {
+  state = {
+      data: []
+  };
+}
 
 const IdeaCards = (props) => {
   const entries = props.data.map(entry => (
@@ -16,7 +20,7 @@ const IdeaCards = (props) => {
           {entry.memberName}
         </Card.Meta>
         <Card.Description>
-          {entry.description.substring(0,30) + "..."}
+          {entry.description.substring(0,10) + "..."}
         </Card.Description>
       </Card.Content>
       <Modal trigger={
@@ -24,6 +28,9 @@ const IdeaCards = (props) => {
           <Button color='green'>
           More Info
           </Button>
+          <div>
+            {entry.loves}
+          </div>
         </Card.Content>}
         >
         <Modal.Content>

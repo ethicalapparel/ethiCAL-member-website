@@ -26,10 +26,11 @@ router.get('/ideas', function(req, res, next) {
       res.json(
         cliResponse.data.data.filter(elem => hasTag(elem.tags, "member website"))
           .map(elem => {
-            console.log(elem);
+            console.log(elem[0]);
             return {idea: elem.name,
               description: elem.notes,
-              memberName: getCustomField(elem.custom_fields, "Member"),
+              memberName: getCustomFieldEnum(elem.custom_fields, "Member"),
+              loves: getCustomFieldNum(elem.custom_fields, "Loves"),
               created_at: elem.created_at,
               id: elem.id
               };
@@ -92,12 +93,15 @@ hasTag = (tags, tagName) => {
   return tagNames && tagNames.length ? tagNames.includes(tagName) : false;
 };
 
-getCustomField = (customFields, fieldName) => {
+getCustomFieldEnum = (customFields, fieldName) => {
   var cf = customFields.filter(field => field.name==fieldName)
   return cf && cf.length && cf[0].enum_value ? cf[0].enum_value.name : undefined;
 };
 
-
+getCustomFieldNum = (customFields, fieldName) => {
+  var cf = customFields.filter(field => field.name==fieldName)
+  return cf && cf.length && cf[0].number_value ? cf[0].number_value : undefined;
+};
 
 
 
