@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Divider, Header, Loader} from 'semantic-ui-react';
 import './index.css';
-import imageFile from './res/img/team-image.JPG';
+import imageFile from './res/img/team-image.JPG'
 
 const TeamUpdate = (props) => {
   const updates = props.data.filter(entry => entry.team == props.teamName)
