@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Divider, Header, Loader, Image} from 'semantic-ui-react';
 import './index.css';
-
+import imageFile from './res/img/team-image.JPG';
 
 const RetreatSection = (props) => {
   const entries = props.data.filter(entry => entry.section == props.section)
@@ -62,7 +62,12 @@ class Retreat extends Component {
 
     return (
       <div className="container">
-        <Header as='h1'> Retreat Information </Header>
+        <div className="cover-photo">
+          <div className="overlay">
+            <img src={imageFile}/>
+          </div>
+          <Header as='h1' className='main-header'> Retreat Information </Header>
+        </div>
         <div className="information-bullets">
           {this.infoBullets}
         </div>
