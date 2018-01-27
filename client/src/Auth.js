@@ -1,15 +1,38 @@
 import axios from 'axios';
 const auth = {
-  isAuthenticated: false, // Set to true in development
-  authenticate(secret, cb) {
-    axios.post('/auth/login', {loginSecret: secret})
-      .then(() => (this.isAuthenticated=true));
-    cb(this.isAuthenticated)
+  authenticated: false,
+  updateAuthentication(cb) {
+    // const getAuth = () => (new Promise(resolve => {
+    //   axios.get('/auth/authenticated').then((res) => {
+    //     resolve(res.data.authenticated);
+    //   });
+    // }));
+      axios.get('auth/authenticated')
+        .then((res) => {
+          console.log(res.data.authenticated);
+          this.authenticated = res.data.authenticated;
+          if (this.authenticated) {
+            this.username = res.data.name
+          }
+          cb()
+        });
+    // return res.data.authenticated;
+  }, // Set to true in development
+  username: '',
+  authenticate(user, secret, cb) {
+    axios.post('/auth/login', {username: user, loginSecret: secret})
+      .then((res) => {
+        this.updateAuthentication(cb);
+      })
+      .catch((err) => {
+        this.updateAuthentication(cb);
+      });
   },
   signout(cb) {
-    this.isAuthenticated = false
+    this.authenticated = false
     setTimeout(cb, 100)
   }
 }
+
 
 export default auth;
