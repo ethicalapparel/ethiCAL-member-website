@@ -46,11 +46,7 @@ router.get('/ideas', function(req, res, next) {
             console.log(elem);
             return {idea: elem.name,
               description: elem.notes,
-<<<<<<< HEAD
-              memberName: getCustomField(elem.custom_fields, "Member"),
-=======
               memberName: getCustomFieldEnum(elem.custom_fields, "Member"),
->>>>>>> auth
               created_at: elem.created_at,
               id: elem.id
               };
