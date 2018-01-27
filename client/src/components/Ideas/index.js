@@ -47,7 +47,6 @@ const IdeaCards = (props) => {
   );
 };
 
-
 class Ideas extends Component {
   state = {
       data: []

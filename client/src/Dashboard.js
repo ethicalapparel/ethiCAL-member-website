@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Menu, Container, Header } from 'semantic-ui-react';
+import { Menu, Container, Header, Loader, Divider } from 'semantic-ui-react';
 import Calendar from './components/Calendar';
 import Updates from './components/Updates';
 import Feedback from './components/Feedback';
 import Ideas from './components/Ideas';
 import General from './components/General';
 import auth from './Auth.js';
+import SalesEvents from './components/SalesEvents';
+import Retreat from './components/Retreat';
 
 import {
   BrowserRouter as Router,
@@ -23,6 +25,7 @@ class Dashboard extends Component {
   };
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
 
   render() {
     var {activeItem} = this.state;
@@ -77,6 +80,26 @@ class Dashboard extends Component {
           </Menu.Item>
         </Link>
 
+        <Link to={`${match.url}/retreat`}>
+          <Menu.Item
+            name='Retreat Info'
+            active={activeItem === 'Retreat Info'}
+            onClick={this.handleItemClick}
+          >
+            Retreat Info
+          </Menu.Item>
+        </Link>
+
+        <Link to={`${match.url}/sales`}>
+          <Menu.Item
+            name='Sales Events'
+            active={activeItem === 'Sales Events'}
+            onClick={this.handleItemClick}
+          >
+            Sales Events
+          </Menu.Item>
+        </Link>
+
         <Link to={`${match.url}/ideas`}>
           <Menu.Item
             name='Ideas Thread'
@@ -108,6 +131,8 @@ class Dashboard extends Component {
         <Route path={`${match.url}/general`} component={General}/>
         <Route path={`${match.url}/ideas`} component={Ideas}/>
         <Route path={`${match.url}/feedback`} component={Feedback}/>
+        <Route path={`${match.url}/sales`} component={SalesEvents}/>
+        <Route path={`${match.url}/retreat`} component={Retreat}/>
       </Container>
       </div>
 
@@ -116,12 +141,46 @@ class Dashboard extends Component {
 }
 
 class Home extends Component {
+  state = {
+    data: []
+  }
+
+  getData() {
+    axios.get('/asana/homeContent')
+      .then((response) => this.setState({data: response.data}));
+  };
+
+  componentDidMount() {
+    this.getData();
+    this.countdown = setInterval(()=>this.getData(), 10000);
+  };
+
+  componentWillUnmount() {
+    clearInterval(this.countdown);
+  };
   render() {
-    var {username} = auth;
-    return (<Header
+
+    var updates;
+    if (this.state.data && this.state.data.length > 0) {
+      updates = <ul> {this.state.data.map(elem => <li> {elem.reminder} </li>)} </ul>;
+    } else {
+      updates = <Loader active />
+    }
+
+    return (
+      <div>
+        <Header
             as='h1'
-            style={{ fontSize: '4em', fontWeight: 'normal', marginBottom: 0, marginTop: '2em' }}
-          > {"Welcome Back " + username.split(" ")[0]} </Header>);
+            content='Welcome Back'
+            style={{ fontSize: '3em', fontWeight: 'normal', marginBottom: 0, marginTop: '2em' }}
+          />
+          <Header as='h2' content="Here's watt's up"/>
+          <div style={{width: '30%', margin: 'auto'}}>
+            {updates}
+          </div>
+      </div>
+
+    );
   };
 }
 
