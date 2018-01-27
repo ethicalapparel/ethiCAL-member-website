@@ -42,11 +42,11 @@ class PrivateRoute extends Component {
   }
 
   componentDidMount() {
-    auth.updateAuthentication().then((authenticated)=>
+    auth.updateAuthentication(() =>
       {
-        console.log(authenticated);
         this.setState({knowAuth: true});
-      });
+      }
+    );
   }
 
   render() {
@@ -91,12 +91,18 @@ class Login extends React.Component {
   }
 
   login = () => {
-    auth.authenticate(this.state.name, this.state.submittedSecret, (auth) => {
-      auth ? this.setState({ redirectToReferrer: true }) : this.setState({loginFailed: true});
+    auth.authenticate(this.state.name, this.state.submittedSecret, () => {
+      auth.authenticated ? this.setState({ redirectToReferrer: true }) : this.setState({loginFailed: true, submittedSecret: ''});
     });
   }
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value })
+
+  componentWillMount() {
+    auth.updateAuthentication(() => {
+      auth.authenticated ? this.setState({redirectToReferrer: true}) : console.log('Not Authenticated')
+    });
+  }
 
   render() {
     const { from } = this.props.location.state || { from: { pathname: '/' } }
@@ -118,7 +124,7 @@ class Login extends React.Component {
           <Header> EthiCAL Member Portal </Header>
           <Form onSubmit={this.login}>
               <Form.Field>
-                <Form.Input placeholder='Name' name='name' value={this.state.name} onChange={this.handleChange} />
+                <Form.Input placeholder='Username' name='name' value={this.state.name} onChange={this.handleChange} />
               </Form.Field>
               <Form.Field>
                 <Form.Input placeholder='Secret Key' name='submittedSecret' value={this.state.submittedSecret} onChange={this.handleChange} type='password'/>
