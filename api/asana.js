@@ -3,6 +3,7 @@ var router = express.Router();
 
 var asana = require('asana');
 var axios = require('axios');
+const passport = require('passport');
 const ASANA_AUTH_HEADER = "Bearer " + process.env.ASANA_PAT;
 
 var client = axios.create({
@@ -12,10 +13,15 @@ var client = axios.create({
 
 /* Gets list of events from club calendar*/
 router.get('/calendar', function(req, res, next) {
-  client.get('/projects/509572030520060/tasks?opt_expand=due_on')
-    .then(function(cliResponse) {
-      res.json(cliResponse.data.data);
-    });
+  if(req.isAuthenticated()) {
+    console.log("Asana authenticated!");
+    client.get('/projects/509572030520060/tasks?opt_expand=due_on')
+      .then(function(cliResponse) {
+        res.json(cliResponse.data.data);
+      });
+  } else {
+    res.status(500).send("500 Error: Not Authorized");
+  }
 });
 
 /* Gets list of events from club calendar*/
@@ -38,6 +44,7 @@ router.get('/homeContent', function(req, res, next) {
 /* A list of ideas. */
 /* /projects/432354090717462 */
 router.get('/ideas', function(req, res, next) {
+
   client.get('/projects/432354090717462/tasks?opt_expand=notes,created_at,tags,custom_fields')
     .then(function(cliResponse) {
       res.json(
