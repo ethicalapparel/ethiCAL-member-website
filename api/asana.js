@@ -47,10 +47,7 @@ router.get('/ideas', function(req, res, next) {
             return {idea: elem.name,
               description: elem.notes,
               memberName: getCustomFieldEnum(elem.custom_fields, "Member"),
-<<<<<<< HEAD
               loves: getCustomFieldNum(elem.custom_fields, "Loves"),
-=======
->>>>>>> deploy
               created_at: elem.created_at,
               id: elem.id
               };
@@ -165,26 +162,23 @@ const hasTag = (tags, tagName) => {
   return tagNames && tagNames.length ? tagNames.includes(tagName) : false;
 };
 
-<<<<<<< HEAD
-getCustomFieldEnum = (customFields, fieldName) => {
-=======
+
 const getCustomFieldEnum = (customFields, fieldName) => {
   var cf = customFields.filter(field => field.name==fieldName)
   return cf && cf.length && cf[0].enum_value ? cf[0].enum_value.name : "";
 };
 
 const getCustomFieldText = (customFields, fieldName) => {
->>>>>>> deploy
   var cf = customFields.filter(field => field.name==fieldName)
   return cf && cf.length && cf[0].text_value ? cf[0].text_value : "";
 };
 
-<<<<<<< HEAD
-getCustomFieldNum = (customFields, fieldName) => {
+
+const getCustomFieldNum = (customFields, fieldName) => {
   var cf = customFields.filter(field => field.name==fieldName)
   return cf && cf.length && cf[0].number_value ? cf[0].number_value : undefined;
 };
-=======
+
 const authRoster = (cb) => {
   client.get('/projects/493613295744508/tasks?opt_expand=tags,custom_fields')
     .then(function(cliResponse) {
@@ -220,7 +214,6 @@ const loginRoster = (cb) => {
   );
 }
 
->>>>>>> deploy
 
 
 
