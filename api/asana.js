@@ -46,7 +46,7 @@ router.get('/ideas', function(req, res, next) {
             console.log(elem);
             return {idea: elem.name,
               description: elem.notes,
-              memberName: getCustomField(elem.custom_fields, "Member"),
+              memberName: getCustomFieldEnum(elem.custom_fields, "Member"),
               created_at: elem.created_at,
               id: elem.id
               };
@@ -66,7 +66,7 @@ router.get('/updates', function(req, res, next) {
             //console.log(elem);
             return {name: elem.name,
               description: elem.notes,
-              team: getCustomField(elem.custom_fields, "Team")};
+              team: getCustomFieldEnum(elem.custom_fields, "Team")};
           })
       );
     });
@@ -110,7 +110,7 @@ router.get('/retreat', function(req, res, next) {
             //console.log(elem);
             return {name: elem.name,
               description: elem.notes,
-              section: getCustomField(elem.custom_fields, "Section")
+              section: getCustomFieldEnum(elem.custom_fields, "Section")
             };
           })
       );
@@ -137,7 +137,7 @@ router.post('/submitFeedback', function(req, res, next) {
   );
 });
 
-/* Creates a Task of Feedback */
+/* Submits an Idea.. Doesn't work yet :( */
 router.post('/submitIdea', function(req, res, next) {
   client.post('/tasks',
     {"data": {"projects": "515811081031389",
@@ -156,18 +156,57 @@ router.post('/submitIdea', function(req, res, next) {
   );
 });
 
-hasTag = (tags, tagName) => {
+const hasTag = (tags, tagName) => {
   var tagNames = tags.map(tag => tag.name);
   return tagNames && tagNames.length ? tagNames.includes(tagName) : false;
 };
 
-getCustomField = (customFields, fieldName) => {
+const getCustomFieldEnum = (customFields, fieldName) => {
   var cf = customFields.filter(field => field.name==fieldName)
   return cf && cf.length && cf[0].enum_value ? cf[0].enum_value.name : "";
 };
 
+const getCustomFieldText = (customFields, fieldName) => {
+  var cf = customFields.filter(field => field.name==fieldName)
+  return cf && cf.length && cf[0].text_value ? cf[0].text_value : "";
+};
+
+const authRoster = (cb) => {
+  client.get('/projects/493613295744508/tasks?opt_expand=tags,custom_fields')
+    .then(function(cliResponse) {
+      var users = {};
+      cliResponse.data.data.filter(elem => hasTag(elem.tags, "member website"))
+        .map(elem => {
+          console.log(elem)
+          var id = getCustomFieldText(elem.custom_fields, "id");
+          users[id] =  {
+            name: getCustomFieldEnum(elem.custom_fields, "Member"),
+            id: getCustomFieldText(elem.custom_fields, "id")
+            };
+        });
+      cb(users);
+    }
+  );
+}
+
+const loginRoster = (cb) => {
+  client.get('/projects/493613295744508/tasks?opt_expand=tags,custom_fields')
+    .then(function(cliResponse) {
+      var users = {};
+      cliResponse.data.data.filter(elem => hasTag(elem.tags, "member website"))
+        .map(elem => {
+          console.log(elem)
+          var username = getCustomFieldText(elem.custom_fields, "username");
+          users[username] =  {name: getCustomFieldEnum(elem.custom_fields, "Member"),
+              id: getCustomFieldText(elem.custom_fields, "id")
+            };
+        });
+      cb(users);
+    }
+  );
+}
 
 
 
 
-module.exports = router;
+module.exports = {asana: router, loginRoster: loginRoster, authRoster: authRoster};
