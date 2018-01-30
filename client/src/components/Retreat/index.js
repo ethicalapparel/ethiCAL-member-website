@@ -8,7 +8,7 @@ const RetreatSection = (props) => {
   const entries = props.data.filter(entry => entry.section == props.section)
   .map(entry => (
         <div>
-          <div style={{size: '16px'}}> {entry.name} </div>
+          <Header as='h3'> {entry.name} </Header>
           <p> {entry.description}</p>
         </div>
     )
@@ -17,7 +17,7 @@ const RetreatSection = (props) => {
   const loading = <Loader inline small centered active/>
   return(
     <div>
-      <Header as='h3'> {props.section} </Header>
+      <Header as='h2'> {props.section} </Header>
       {entries}
     </div>
   );
@@ -50,10 +50,10 @@ class Retreat extends Component {
 
     if (this.state.data && this.state.data.length > 0) {
       this.infoBullets = (
-      <div>
-        <RetreatSection section='General' data={this.state.data}/>
-        <RetreatSection section='Packing' data={this.state.data}/>
-        <RetreatSection section='Activities' data={this.state.data}/>
+      <div class = "ui two column centered grid">
+        <div id = "rows" class = "ten wide column"> <RetreatSection section='General' data={this.state.data}/> </div>
+        <div id = "rows" class = "four wide column"> <RetreatSection section='Packing' data={this.state.data}/> </div>
+        <div id = "rows" class = "fourteen wide column"> <RetreatSection section='Activities' data={this.state.data}/> </div>
       </div>
       );
     } else {

@@ -160,14 +160,15 @@ class Home extends Component {
     }
 
     return (
-      <div>
-        <Header
+      <div as = 'bullet-information' style = {{background: '#c8dde1', width: '80%', 
+          margin: 'auto', overlay: '0.5', padding: '40 0', borderRadius: 25}}>
+          <Header
             as='h1'
             content='Welcome Back'
-            style={{ fontSize: '3em', fontWeight: 'normal', marginBottom: 0, marginTop: '2em' }}
+            style={{ fontSize: '3em', fontWeight: 'normal', marginBottom: 0, marginTop: '1em', padding: 25}}
           />
           <Header as='h2' content="Here's watt's up"/>
-          <div style={{width: '30%', margin: 'auto'}}>
+          <div style={{width: '40%', margin: 'auto'}}>
             {updates}
           </div>
       </div>
