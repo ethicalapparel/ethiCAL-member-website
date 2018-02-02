@@ -45,7 +45,7 @@ class SalesEvents extends Component {
   render() {
     return (
       <div className="container">
-        <Header as='h1'> Sales Events Info </Header>
+        <Header as='h1'> Sales Event Info </Header>
         <div className="information-bullets">
           <SalesInfo data={this.state.data}/>
         </div>
