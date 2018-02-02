@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {Divider, Header, Loader, Image} from 'semantic-ui-react';
+import DescFormat from '../../utils/StringFormat.js';
 import './index.css';
 import imageFile from './res/img/team-image.JPG';
 
@@ -9,7 +10,7 @@ const RetreatSection = (props) => {
   .map(entry => (
         <div>
           <div style={{size: '16px'}}> {entry.name} </div>
-          <p> {entry.description}</p>
+          <DescFormat text={entry.description}/>
         </div>
     )
   );
