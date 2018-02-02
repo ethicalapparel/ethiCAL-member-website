@@ -44,6 +44,8 @@ npm start
 
 Go to [localhost:3000](http://localhost:3000)
 
+The username will be your Calnet ID (Berkeley email without the @berkeley.edu)
+
 You can type in any password in the login screen
 
 http://localhost:3000/home/calendar should look like this:
