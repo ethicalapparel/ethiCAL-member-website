@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var uuid = require('uuid/v4');
 var session = require('express-session');
+var helmet = require('helmet');
 const FileStore = require('session-file-store')(session);
 const passport = require('passport');
 
@@ -25,6 +26,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(helmet());
 const LocalStrategy = require('passport-local').Strategy;
 
 const ETHICAL_SECRET = process.env.ETHICAL_SECRET;
