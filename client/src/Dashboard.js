@@ -8,6 +8,7 @@ import Ideas from './components/Ideas';
 import General from './components/General';
 import SalesEvents from './components/SalesEvents';
 import Retreat from './components/Retreat';
+import './index.css';
 
 import {
   BrowserRouter as Router,
@@ -160,17 +161,16 @@ class Home extends Component {
     }
 
     return (
-      <div as = 'bullet-information' style = {{background: '#c8dde1', width: '80%', 
-          margin: 'auto', overlay: '0.5', padding: '40 0', borderRadius: 25}}>
-          <Header
-            as='h1'
-            content='Welcome Back'
-            style={{ fontSize: '3em', fontWeight: 'normal', marginBottom: 0, marginTop: '1em', padding: 25}}
-          />
-          <Header as='h2' content="Here's watt's up"/>
-          <div style={{width: '40%', margin: 'auto'}}>
-            {updates}
-          </div>
+      <div id = 'dashboard-container'>
+           <Header as='h1'content='WELCOME BACK!'
+              style={{ fontSize: '4em', fontWeight: 'normal', marginBottom: 0, marginTop: '1.5em', paddingTop: '20px'}}
+            />
+            <div id = 'content'>
+              <Header as='h3' content="Here's watts up:"/>
+              <div id = 'updates-list' style={{fontWeight: 'normal', margin: 'auto'}}>
+                {updates}   
+              </div>
+            </div>
       </div>
 
     );
