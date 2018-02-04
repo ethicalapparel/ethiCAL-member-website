@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {Divider, Header, Loader, Image} from 'semantic-ui-react';
-import DescFormat from '../../utils/StringFormat.js';
+import DescFormat from '../../utils/StringFormat.js'
 import './index.css';
-import imageFile from './res/img/general-info.JPG';
-
-const Info = (props) => {
+import imageFile from './res/img/team-image.JPG';
+// {entry.description.split("\n").map(line => <p> {line} </p>)}
+const SalesInfo = (props) => {
   const entries = props.data.map(entry => (
     <div>
       <div>
@@ -22,13 +22,13 @@ const Info = (props) => {
 }
 
 
-class General extends Component {
+class SalesEvents extends Component {
   state = {
       data: []
       };
 
   getData() {
-    axios.get('/asana/general')
+    axios.get('/asana/sales')
       .then((response) => this.setState({data: response.data}));
   };
 
@@ -45,18 +45,13 @@ class General extends Component {
   render() {
     return (
       <div className="container">
-        <div className="cover-photo">
-          <div className="overlay">
-            <img src={imageFile}/>
-          </div>
-          <Header as='h1' className='main-header'> General Info </Header>
-        </div>
+        <Header as='h1'> Sales Event Info </Header>
         <div className="information-bullets">
-          <Info data={this.state.data}/>
+          <SalesInfo data={this.state.data}/>
         </div>
       </div>
       );
   };
 };
 
-export default General;
+export default SalesEvents;

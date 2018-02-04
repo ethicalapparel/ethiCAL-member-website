@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Menu, Container, Header } from 'semantic-ui-react';
+import { Menu, Container, Header, Loader, Divider } from 'semantic-ui-react';
 import Calendar from './components/Calendar';
 import Updates from './components/Updates';
 import Feedback from './components/Feedback';
 import Ideas from './components/Ideas';
 import General from './components/General';
+import auth from './Auth.js';
+import SalesEvents from './components/SalesEvents';
+import Retreat from './components/Retreat';
 
 import {
   BrowserRouter as Router,
@@ -23,16 +26,19 @@ class Dashboard extends Component {
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
+
   render() {
     var {activeItem} = this.state;
     var match = this.props.match;
-    console.log(match);
+    var {username} = auth;
+
+    console.log(username);
     // <div>
     //   <Route path="/home" component={Home}/>
     // </div>
     return (
       <div>
-      <Menu secondary size='large' pointing>
+      <Menu secondary size='large' pointing fixed>
         <Link to={match.url}>
         <Menu.Item
           name='Home'
@@ -74,6 +80,26 @@ class Dashboard extends Component {
           </Menu.Item>
         </Link>
 
+        <Link to={`${match.url}/retreat`}>
+          <Menu.Item
+            name='Retreat Info'
+            active={activeItem === 'Retreat Info'}
+            onClick={this.handleItemClick}
+          >
+            Retreat Info
+          </Menu.Item>
+        </Link>
+
+        <Link to={`${match.url}/sales`}>
+          <Menu.Item
+            name='Sales Events'
+            active={activeItem === 'Sales Events'}
+            onClick={this.handleItemClick}
+          >
+            Sales Events
+          </Menu.Item>
+        </Link>
+
         <Link to={`${match.url}/ideas`}>
           <Menu.Item
             name='Ideas Thread'
@@ -92,6 +118,11 @@ class Dashboard extends Component {
             Feedback Box
           </Menu.Item>
         </Link>
+        <Menu.Menu position='right'>
+          <Menu.Item>
+            {username}
+          </Menu.Item>
+        </Menu.Menu>
       </Menu>
       <Container textAlign='center' fluid>
         <Route exact path={match.url} component={Home}/>
@@ -100,6 +131,8 @@ class Dashboard extends Component {
         <Route path={`${match.url}/general`} component={General}/>
         <Route path={`${match.url}/ideas`} component={Ideas}/>
         <Route path={`${match.url}/feedback`} component={Feedback}/>
+        <Route path={`${match.url}/sales`} component={SalesEvents}/>
+        <Route path={`${match.url}/retreat`} component={Retreat}/>
       </Container>
       </div>
 
@@ -108,13 +141,46 @@ class Dashboard extends Component {
 }
 
 class Home extends Component {
-  state = {data: ["Hello", "Bye"]}
+  state = {
+    data: []
+  }
+
+  getData() {
+    axios.get('/asana/homeContent')
+      .then((response) => this.setState({data: response.data}));
+  };
+
+  componentDidMount() {
+    this.getData();
+    this.countdown = setInterval(()=>this.getData(), 10000);
+  };
+
+  componentWillUnmount() {
+    clearInterval(this.countdown);
+  };
   render() {
-    return (<Header
+
+    var updates;
+    if (this.state.data && this.state.data.length > 0) {
+      updates = <ul> {this.state.data.map(elem => <li> {elem.reminder} </li>)} </ul>;
+    } else {
+      updates = <Loader active />
+    }
+
+    return (
+      <div>
+        <Header
             as='h1'
             content='Welcome Back'
-            style={{ fontSize: '4em', fontWeight: 'normal', marginBottom: 0, marginTop: '2em' }}
-          />);
+            style={{ fontSize: '3em', fontWeight: 'normal', marginBottom: 0, marginTop: '2em' }}
+          />
+          <Header as='h2' content="Here's watt's up"/>
+          <div style={{width: '30%', margin: 'auto'}}>
+            {updates}
+          </div>
+      </div>
+
+    );
   };
 }
 
