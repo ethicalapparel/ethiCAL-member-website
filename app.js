@@ -58,7 +58,6 @@ passport.use(new LocalStrategy(
     // for now, we'll just pretend we found that it was users[0]
     loginRoster((roster) => {
         console.log(`User: ${username}`);
-        console.log(roster);
         if (roster[username]) {
           if(!ETHICAL_SECRET || password == ETHICAL_SECRET) {
             var user = roster[username]
@@ -103,6 +102,7 @@ passport.deserializeUser((id, done) => {
 //
 app.use(express.static(path.join(__dirname, 'client/build')));
 
+
 function loggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         next();
@@ -113,6 +113,10 @@ function loggedIn(req, res, next) {
 
 app.use('/asana', loggedIn, asana);
 app.use('/auth', auth);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
