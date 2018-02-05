@@ -9,6 +9,7 @@ import General from './components/General';
 import auth from './Auth.js';
 import SalesEvents from './components/SalesEvents';
 import Retreat from './components/Retreat';
+import './index.css';
 
 import {
   BrowserRouter as Router,
@@ -169,16 +170,16 @@ class Home extends Component {
     }
 
     return (
-      <div>
-        <Header
-            as='h1'
-            content='Welcome Back'
-            style={{ fontSize: '3em', fontWeight: 'normal', marginBottom: 0, marginTop: '2em' }}
-          />
-          <Header as='h2' content="Here's watt's up"/>
-          <div style={{width: '30%', margin: 'auto'}}>
-            {updates}
-          </div>
+      <div id = 'dashboard-container'>
+           <Header as='h1'content='WELCOME BACK!'
+              style={{ fontSize: '4em', fontWeight: 'normal', marginBottom: 0, marginTop: '1.5em', paddingTop: '20px'}}
+            />
+            <div id = 'content'>
+              <Header as='h3' content="Here's watts up:"/>
+              <div id = 'updates-list' style={{fontWeight: 'normal', margin: 'auto'}}>
+                {updates}   
+              </div>
+            </div>
       </div>
 
     );
