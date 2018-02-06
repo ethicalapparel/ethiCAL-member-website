@@ -164,7 +164,15 @@ class Home extends Component {
 
     var updates;
     if (this.state.data && this.state.data.length > 0) {
-      updates = <ul> {this.state.data.map(elem => <li> {elem.reminder} </li>)} </ul>;
+
+      updates = <ul> {this.state.data.map(elem => {
+        var convertLinks = elem.reminder.split(" ")
+          .map((word) => {
+            return word.includes("https://") || word.includes("http://") ?
+             <a href={word} target="_blank"> {word} </a> : " " + word;
+          });
+        return <li> {convertLinks} </li>;
+      })} </ul>;
     } else {
       updates = <Loader active />
     }
@@ -177,7 +185,7 @@ class Home extends Component {
             <div id = 'content'>
               <Header as='h3' content="Here's watts up:"/>
               <div id = 'updates-list' style={{fontWeight: 'normal', margin: 'auto'}}>
-                {updates}   
+                {updates}
               </div>
             </div>
       </div>
