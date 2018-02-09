@@ -119,23 +119,28 @@ class Login extends React.Component {
     //   onFailure={responseGoogle}
     // />
     return (
-      <Grid container centered>
-        <Segment secondary textAlign='center' style={{marginTop: '35vh', width: '30%'}}>
-          <Header> EthiCAL Member Portal </Header>
-          <Form onSubmit={this.login}>
-              <Form.Field>
-                <Form.Input placeholder='Username' name='name' value={this.state.name} onChange={this.handleChange} />
-              </Form.Field>
-              <Form.Field>
-                <Form.Input placeholder='Secret Key' name='submittedSecret' value={this.state.submittedSecret} onChange={this.handleChange} type='password'/>
-              </Form.Field>
-              <Form.Button content='Login'/>
-          </Form>
-          <div>
-          {this.state.loginFailed && "Login Failed"}
-          </div>
+      <Grid container columns={1} centered>
+        <Grid.Row>
+          <Grid.Column computer={5} mobile={14} tablet={10}>
+            <Segment secondary textAlign='center' style={{marginTop: '30vh'}}>
+              <Header> EthiCAL Member Portal </Header>
+              <Form onSubmit={this.login}>
+                  <Form.Field>
+                    <Form.Input placeholder='Username' name='name' value={this.state.name} onChange={this.handleChange} />
+                  </Form.Field>
+                  <Form.Field>
+                    <Form.Input placeholder='Secret Key' name='submittedSecret' value={this.state.submittedSecret} onChange={this.handleChange} type='password'/>
+                  </Form.Field>
+                  <Form.Button content='Login'/>
+              </Form>
+              <div>
+              {this.state.loginFailed && "Login Failed"}
+              </div>
 
-        </Segment>
+            </Segment>
+          </Grid.Column>
+        </Grid.Row>
+
       </Grid>
     )
   }
