@@ -70,16 +70,6 @@ class Dashboard extends Component {
           </Menu.Item>
         </Link>
 
-        <Link to={`${match.url}/retreat`}>
-          <Menu.Item
-            name='Retreat Info'
-            active={activeItem === 'Retreat Info'}
-            onClick={this.handleItemClick}
-          >
-            Retreat Info
-          </Menu.Item>
-        </Link>
-
         <Link to={`${match.url}/sales`}>
           <Menu.Item
             name='Sales Events'
@@ -113,7 +103,6 @@ class Dashboard extends Component {
         <Route path={`${match.url}/ideas`} component={Ideas}/>
         <Route path={`${match.url}/feedback`} component={Feedback}/>
         <Route path={`${match.url}/sales`} component={SalesEvents}/>
-        <Route path={`${match.url}/retreat`} component={Retreat}/>
       </Container>
       </div>
 
