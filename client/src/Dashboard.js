@@ -31,8 +31,9 @@ class Dashboard extends Component {
   render() {
     var {activeItem} = this.state;
     var match = this.props.match;
-    var {username} = auth;
-
+    var username = auth.username;
+    var id = auth.id;
+    console.log(id);
     console.log(username);
     // <div>
     //   <Route path="/home" component={Home}/>
@@ -176,7 +177,7 @@ class Home extends Component {
             <div id = 'content'>
               <Header as='h3' content="Here's watts up:"/>
               <div id = 'updates-list' style={{fontWeight: 'normal', margin: 'auto'}}>
-                {updates}   
+                {updates}
               </div>
             </div>
       </div>

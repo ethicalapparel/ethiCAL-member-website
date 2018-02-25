@@ -58,8 +58,8 @@ passport.use(new LocalStrategy(
     // for now, we'll just pretend we found that it was users[0]
     loginRoster((roster) => {
         console.log(`User: ${username}`);
-        console.log(roster);
-        if (roster[username]) {
+        //console.log(roster); for debugging
+        if (roster[username] || roster[username.replace("@berkeley.edu", "")]) {
           if(!ETHICAL_SECRET || password == ETHICAL_SECRET) {
             var user = roster[username]
             console.log('Local strategy returned true');
@@ -88,7 +88,7 @@ passport.deserializeUser((id, done) => {
   console.log('Inside deserializeUser callback')
   console.log(`The user id passport saved in the session file store is: ${id}`)
   authRoster((roster) => {
-      console.log(roster);
+      // console.log(roster); for debugging
       if (roster[id]) {
         user = roster[id]
         console.log('Local strategy returned true')

@@ -37,7 +37,7 @@ router.get('/authenticated', (req, res, next) => {
   console.log("In authenticated");
   if(req.isAuthenticated()) {
       console.log("Is authenticated");
-      res.json({name: req.user.name, authenticated: true})
+      res.json({name: req.user.name, id: req.user.post_id, authenticated: true})
     } else {
       console.log("Not authenticated");
       res.json({authenticated: false})

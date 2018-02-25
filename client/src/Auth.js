@@ -12,7 +12,8 @@ const auth = {
           console.log(res.data.authenticated);
           this.authenticated = res.data.authenticated;
           if (this.authenticated) {
-            this.username = res.data.name
+            this.username = res.data.name,
+            this.id = res.data.id
           }
           cb()
         });
