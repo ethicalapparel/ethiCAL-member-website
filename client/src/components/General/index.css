@@ -5,17 +5,20 @@
   text-shadow: 2px 1px 5px rgba(150, 150, 150, 1);
 }
 
-h2 {
+h1 {
 	text-shadow: 2px 1px 5px rgba(150, 150, 150, 1);
 	color: white;
 }
 
-h2.ui.header {
+h1.ui.header, h2.ui.header {
 	color: white;
 }
 
-p {
+p, h3.ui.header {
 	color: #7b7b7b;
+}
+
+p {
 	margin-left: 20px;
 }
 
@@ -56,6 +59,7 @@ p {
 	background: #c8dde1;
 	border-radius: 20px;
 }
+
 
 
 

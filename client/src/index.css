@@ -1,0 +1,35 @@
+/*Dashboard CSS*/
+
+#dashboard-container {
+	background: #c8dde1;
+	width: 70%;
+	margin: auto;
+	border-radius: 25px;
+}
+
+#content {
+	padding-bottom: 40px;
+	color: white;
+}
+
+#updates-list {
+	background: #9ebcc3;
+	border-radius: 25px;
+	padding: 20px;
+	width: 60%;
+	text-align: left;
+}
+
+#updates-list ul {
+	color: whitesmoke;
+	width: 80%;
+	margin: auto;
+}
+
+#updates-list li {
+	margin: 10px 0;
+}
+
+h3.ui.header {
+	color: white;
+}
