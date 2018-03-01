@@ -7,16 +7,23 @@ import auth from "../../Auth.js";
 class IdeaModal extends Component {
   state = {
       data: [],
-      comment: ""
+      comment: "",
   };
 
   comment = () => {
     // API Call to submit feedback
     //console.log(auth.id);
     //if (this.state.comment) {
+    clearInterval(this.countdown);
     axios.post('/asana/postComment?id=' + this.props.entry.id,
       {text: this.state.comment});
-    this.getData();
+    var arrayvar = this.state.data.slice();
+    arrayvar.push({created_at: "just now", text: this.state.comment});
+    this.setState({ data: arrayvar });
+    //this.getData();
+    setTimeout(() => {
+      this.countdown = setInterval(() => (this.getData()), 3000);
+    }, 10000)
     this.setState({comment: ''});
     //}
     //this.props.prompt();
@@ -29,31 +36,50 @@ class IdeaModal extends Component {
       .then((response) => this.setState({data: response.data}));
   };
 
-  componentDidMount () {
-    //console.log('/asana/ideaComments?id=' + entry.id);
-    this.getData();
-    this.countdown = setInterval(()=>this.getData(), 1000);
 
-  };
+  modalOpen = () => {
+    this.getData();
+    this.countdown = setInterval(()=>this.getData(), 3000);
+  }
+
+  modalClose = () => {
+    clearInterval(this.countdown);
+  }
+
 
   componentWillUnmount() {
     clearInterval(this.countdown);
   };
 
   render() {
-    return (<Modal.Content>
-      <Modal.Header as='h1'>{this.props.entry.idea}</Modal.Header>
-      <Modal.Description>
-        <p>{this.props.entry.description}</p>
-        <div> {JSON.stringify(this.state.data)}</div>
-        <Form onSubmit={this.comment}>
-              <Form.Field>
-                <Form.Input placeholder='Comment...' name='comment' value={this.state.comment} onChange={this.handleChange}/>
-              </Form.Field>
-              <Form.Button content='Comment!'/>
-        </Form>
-      </Modal.Description>
-    </Modal.Content>)
+    return (
+      <Modal trigger={
+        <Card.Content extra>
+          <Button color='green'>
+          More Info
+          </Button>
+          <div>
+            {this.props.entry.loves}
+          </div>
+        </Card.Content>}
+        onOpen={this.modalOpen}
+        onClose={this.modalClose}
+        closeIcon
+        >
+        <Modal.Content>
+        <Modal.Header as='h1'>{this.props.entry.idea}</Modal.Header>
+        <Modal.Description>
+          <p>{this.props.entry.description}</p>
+          <div> {this.state.data.map((elem) => (<p> <b> {elem.text} </b> {elem.created_at}</p>))}</div>
+          <Form onSubmit={this.comment}>
+                <Form.Field>
+                  <Form.Input placeholder='Comment...' name='comment' value={this.state.comment} onChange={this.handleChange}/>
+                </Form.Field>
+                <Form.Button content='Comment!'/>
+          </Form>
+        </Modal.Description>
+      </Modal.Content>
+      </Modal>);
   };
 }
 
@@ -72,18 +98,7 @@ const IdeaCards = (props) => {
           {entry.description.substring(0,10) + "..."}
         </Card.Description>
       </Card.Content>
-      <Modal trigger={
-        <Card.Content extra>
-          <Button color='green'>
-          More Info
-          </Button>
-          <div>
-            {entry.loves}
-          </div>
-        </Card.Content>}
-        >
-        <IdeaModal entry={entry}/>
-      </Modal>
+      <IdeaModal entry={entry}/>
     </Card>
     )
   );
