@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Menu, Container, Header, Loader, Divider } from 'semantic-ui-react';
+import { Segment, Sidebar, Button, Icon, Dropdown, Responsive, Menu, Container, Header, Loader, Divider } from 'semantic-ui-react';
 import Calendar from './components/Calendar';
 import Updates from './components/Updates';
 import Feedback from './components/Feedback';
@@ -19,14 +19,14 @@ import {
   withRouter
 } from 'react-router-dom';
 
+
 class Dashboard extends Component {
   state = {
       activeItem: 'Home',
       data: []
-  };
+  }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
-
 
   render() {
     var {activeItem} = this.state;
@@ -39,9 +39,97 @@ class Dashboard extends Component {
     // </div>
     return (
       <div>
-      <Menu secondary size='large' pointing fixed>
-        <Link to={match.url}>
-        <Menu.Item
+      <Responsive maxWidth={767} as={Dropdown} style={{height: 40, padding: 5}} icon={<Icon name="sidebar" size="big" />}>
+        <Dropdown.Menu>
+            <Dropdown.Item as={Link} to={match.url}
+              onClick={this.handleItemClick}
+              name='Home'
+            >
+            <Menu.Item
+              active={activeItem === 'Home'}
+            >
+              Home
+            </Menu.Item>
+            </Dropdown.Item>
+            <Dropdown.Item as={Link} to={`${match.url}/calendar`}
+                name='Calendar'
+                onClick={this.handleItemClick}
+            >
+              <Menu.Item
+                active={activeItem === 'Calendar'}
+              >
+                Calendar
+              </Menu.Item>
+            </Dropdown.Item>
+
+            <Dropdown.Item as ={Link} to={`${match.url}/updates`}
+                onClick={this.handleItemClick}
+                name='Team Updates'
+            >
+              <Menu.Item
+                active={activeItem === 'Team Updates'}
+              >
+                Team Updates
+              </Menu.Item>
+            </Dropdown.Item>
+
+            <Dropdown.Item as={Link} to={`${match.url}/general`}
+                onClick={this.handleItemClick}
+                name='General Info'
+            >
+              <Menu.Item
+                active={activeItem === 'General Info'}
+              >
+                General Info
+              </Menu.Item>
+            </Dropdown.Item>
+
+            <Dropdown.Item as={Link} to={`${match.url}/retreat`}
+                onClick={this.handleItemClick}
+                name='Retreat Info'
+            >
+              <Menu.Item
+                active={activeItem === 'Retreat Info'}
+              >
+                Retreat Info
+              </Menu.Item>
+            </Dropdown.Item>
+
+            <Dropdown.Item as={Link} to={`${match.url}/sales`}
+                onClick={this.handleItemClick}
+                name='Sales Events'
+            >
+              <Menu.Item
+                active={activeItem === 'Sales Events'}
+              >
+                Sales Events
+              </Menu.Item>
+            </Dropdown.Item>
+
+            <Dropdown.Item as={Link} to={`${match.url}/ideas`}
+                onClick={this.handleItemClick}
+                name='Ideas Thread'
+            >
+              <Menu.Item
+                active={activeItem === 'Ideas Thread'}
+              >
+                Ideas Thread
+              </Menu.Item>
+            </Dropdown.Item>
+            <Dropdown.Item as={Link} to={`${match.url}/feedback`}
+                onClick={this.handleItemClick}
+                name='Feedback Box'
+            >
+              <Menu.Item
+                active={activeItem === 'Feedback Box'}
+              >
+                Feedback Box
+              </Menu.Item>
+            </Dropdown.Item>
+        </Dropdown.Menu>
+      </Responsive>
+      <Responsive minWidth={768} as={Menu}  secondary size='large' pointing fixed>
+        <Link to={match.url}> <Menu.Item
           name='Home'
           active={activeItem === 'Home'}
           onClick={this.handleItemClick}
@@ -124,7 +212,7 @@ class Dashboard extends Component {
             {username}
           </Menu.Item>
         </Menu.Menu>
-      </Menu>
+      </Responsive>
       <Container textAlign='center' fluid>
         <Route exact path={match.url} component={Home}/>
         <Route path={`${match.url}/calendar`} component={Calendar}/>
