@@ -30,6 +30,13 @@ Add Environment variables
 export ASANA_PAT={Insert Asana Personal Access Token From Above Here}
 ```
 **Note**: Do **not** include the brackets when inserting your asana Personal Access Token.
+**Note**: This only stores the access token for a single session so make sure to save your Personal Access Token elsewhere.
+
+If you are on Terminal you can save the environment variable permanently by creating (or editing) a .bash_profile file in your home directory. Add the following line to the end of the .bash_profile and restart Terminal after saving.
+```
+export ASANA_PAT="Insert Asana Personal Access Token from Above Here"
+```
+**Note**: **Do** include the quotes when inserting your asana Personal Access Token. 
 
 In the base directory (Current dir if you've been following along) and run launch command on port 5000
 ```
