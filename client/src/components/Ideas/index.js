@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Card, Header, Loader, Button, Modal, Container, Form} from 'semantic-ui-react';
+import {Card, Header, Loader, Button, Modal, Container, Form, Icon} from 'semantic-ui-react';
 import axios from 'axios';
 import './index.css';
 import auth from "../../Auth.js";
@@ -7,24 +7,26 @@ import auth from "../../Auth.js";
 class IdeaModal extends Component {
   state = {
       data: [],
-      comment: "",
+      comment: ""
   };
 
   comment = () => {
     // API Call to submit feedback
     //console.log(auth.id);
     //if (this.state.comment) {
-    clearInterval(this.countdown);
-    axios.post('/asana/postComment?id=' + this.props.entry.id,
-      {text: this.state.comment});
-    var arrayvar = this.state.data.slice();
-    arrayvar.push({created_at: "just now", text: this.state.comment});
-    this.setState({ data: arrayvar });
-    //this.getData();
-    setTimeout(() => {
-      this.countdown = setInterval(() => (this.getData()), 3000);
-    }, 10000)
-    this.setState({comment: ''});
+    if (this.state.comment.length > 0) {
+      clearInterval(this.countdown);
+      axios.post('/asana/postComment?id=' + this.props.entry.id,
+        {text: this.state.comment});
+      var arrayvar = this.state.data.slice();
+      arrayvar.push({created_at: "just now", text: this.state.comment});
+      this.setState({ data: arrayvar });
+      //this.getData();
+      this.setState({comment: ''});
+      setTimeout(() => {
+        this.countdown = setInterval(() => (this.getData()), 3000);
+      }, 5000)
+    }
     //}
     //this.props.prompt();
   };
@@ -46,7 +48,6 @@ class IdeaModal extends Component {
     clearInterval(this.countdown);
   }
 
-
   componentWillUnmount() {
     clearInterval(this.countdown);
   };
@@ -54,14 +55,10 @@ class IdeaModal extends Component {
   render() {
     return (
       <Modal trigger={
-        <Card.Content extra>
-          <Button color='green'>
+          <Button color='blue'>
           More Info
           </Button>
-          <div>
-            {this.props.entry.loves}
-          </div>
-        </Card.Content>}
+        }
         onOpen={this.modalOpen}
         onClose={this.modalClose}
         closeIcon
@@ -98,7 +95,13 @@ const IdeaCards = (props) => {
           {entry.description.substring(0,10) + "..."}
         </Card.Description>
       </Card.Content>
-      <IdeaModal entry={entry}/>
+      <Card.Content extra>
+        <IdeaModal entry={entry}/>
+        <div style={{float: 'right', poition: 'absolute'}}>
+          <Icon name='heart' link> </Icon>
+          {entry.loves}
+        </div>
+      </Card.Content>
     </Card>
     )
   );
@@ -172,7 +175,7 @@ class Ideas extends Component {
 
   componentDidMount() {
     this.getData();
-    this.countdown = setInterval(()=>this.getData(), 5000);
+    this.countdown = setInterval(()=>this.getData(), 2000);
   };
 
   componentWillUnmount() {
