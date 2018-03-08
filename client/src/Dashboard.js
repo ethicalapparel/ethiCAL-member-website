@@ -51,17 +51,6 @@ class Dashboard extends Component {
               Home
             </Menu.Item>
             </Dropdown.Item>
-            <Dropdown.Item as={Link} to={`${match.url}/calendar`}
-                name='Calendar'
-                onClick={this.handleItemClick}
-            >
-              <Menu.Item
-                active={activeItem === 'Calendar'}
-              >
-                Calendar
-              </Menu.Item>
-            </Dropdown.Item>
-
             <Dropdown.Item as ={Link} to={`${match.url}/updates`}
                 onClick={this.handleItemClick}
                 name='Team Updates'
@@ -84,17 +73,6 @@ class Dashboard extends Component {
               </Menu.Item>
             </Dropdown.Item>
 
-            <Dropdown.Item as={Link} to={`${match.url}/retreat`}
-                onClick={this.handleItemClick}
-                name='Retreat Info'
-            >
-              <Menu.Item
-                active={activeItem === 'Retreat Info'}
-              >
-                Retreat Info
-              </Menu.Item>
-            </Dropdown.Item>
-
             <Dropdown.Item as={Link} to={`${match.url}/sales`}
                 onClick={this.handleItemClick}
                 name='Sales Events'
@@ -106,16 +84,6 @@ class Dashboard extends Component {
               </Menu.Item>
             </Dropdown.Item>
 
-            <Dropdown.Item as={Link} to={`${match.url}/ideas`}
-                onClick={this.handleItemClick}
-                name='Ideas Thread'
-            >
-              <Menu.Item
-                active={activeItem === 'Ideas Thread'}
-              >
-                Ideas Thread
-              </Menu.Item>
-            </Dropdown.Item>
             <Dropdown.Item as={Link} to={`${match.url}/feedback`}
                 onClick={this.handleItemClick}
                 name='Feedback Box'
@@ -138,17 +106,6 @@ class Dashboard extends Component {
         </Menu.Item>
         </Link>
 
-
-        <Link to={`${match.url}/calendar`}>
-          <Menu.Item
-            name='Calendar'
-            active={activeItem === 'Calendar'}
-            onClick={this.handleItemClick}
-          >
-            Calendar
-          </Menu.Item>
-        </Link>
-
         <Link to={`${match.url}/updates`}>
           <Menu.Item
             name='Team Updates'
@@ -169,16 +126,6 @@ class Dashboard extends Component {
           </Menu.Item>
         </Link>
 
-        <Link to={`${match.url}/retreat`}>
-          <Menu.Item
-            name='Retreat Info'
-            active={activeItem === 'Retreat Info'}
-            onClick={this.handleItemClick}
-          >
-            Retreat Info
-          </Menu.Item>
-        </Link>
-
         <Link to={`${match.url}/sales`}>
           <Menu.Item
             name='Sales Events'
@@ -189,15 +136,6 @@ class Dashboard extends Component {
           </Menu.Item>
         </Link>
 
-        <Link to={`${match.url}/ideas`}>
-          <Menu.Item
-            name='Ideas Thread'
-            active={activeItem === 'Ideas Thread'}
-            onClick={this.handleItemClick}
-          >
-            Ideas Thread
-          </Menu.Item>
-        </Link>
         <Link to={`${match.url}/feedback`}>
           <Menu.Item
             name='Feedback Box'
