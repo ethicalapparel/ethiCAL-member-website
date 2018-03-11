@@ -17,6 +17,15 @@ router.get('/calendar', function(req, res, next) {
     console.log("Asana authenticated!");
     client.get('/projects/509572030520060/tasks?opt_expand=due_on')
       .then(function(cliResponse) {
+        cliResponse.data.data.map(function(a) {
+          a["title"] = a["name"];
+          var d = new Date(a["due_on"]);
+          d.setDate(d.getDate() + 1)
+          a["start"] = d;
+          a["end"] = d;
+          delete a.name;
+          delete a.due_on;
+        })
         res.json(cliResponse.data.data);
       });
   } else {
