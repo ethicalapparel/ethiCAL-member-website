@@ -40,6 +40,15 @@ router.get('/homeContent', function(req, res, next) {
     });
 });
 
+/* Test with Attachments */
+router.get('/getAttachment', function(req, res, next) {
+  var url = '/tasks/' + req.query.id + '/attachments/?opt_fields=view_url';
+  client.get(url)
+    .then(function(cliResponse) {
+      res.json(cliResponse.data.data);
+    });
+});
+
 
 /* A list of ideas. */
 /* /projects/432354090717462 */
@@ -105,7 +114,7 @@ router.get('/updates', function(req, res, next) {
 
 /* Get general info about the club. */
 router.get('/general', function(req, res, next) {
-  client.get('/projects/345691809314815/tasks?opt_expand=notes,tags')
+  client.get('/projects/345691809314815/tasks?opt_expand=notes,tags,attachment')
     .then((cliResponse) => {
       res.json(
         cliResponse.data.data.filter((elem) => {
