@@ -15,7 +15,7 @@ var client = axios.create({
 router.get('/calendar', function(req, res, next) {
   if(req.isAuthenticated()) {
     console.log("Asana authenticated!");
-    client.get('/projects/509572030520060/tasks?opt_expand=due_on')
+    client.get('/projects/509572030520060/tasks?opt_expand=due_on,custom_fields')
       .then(function(cliResponse) {
         cliResponse.data.data.map(function(a) {
           a["title"] = a["name"];
@@ -23,8 +23,10 @@ router.get('/calendar', function(req, res, next) {
           d.setDate(d.getDate() + 1)
           a["start"] = d;
           a["end"] = d;
+          a["duration"] = getCustomFieldNumber(a.custom_fields, "Duration (hours)");
           delete a.name;
           delete a.due_on;
+          delete a.custom_fields;
         })
         res.json(cliResponse.data.data);
       });
@@ -185,6 +187,11 @@ const getCustomFieldEnum = (customFields, fieldName) => {
 const getCustomFieldText = (customFields, fieldName) => {
   var cf = customFields.filter(field => field.name==fieldName)
   return cf && cf.length && cf[0].text_value ? cf[0].text_value : "";
+};
+
+const getCustomFieldNumber = (customFields, fieldName) => {
+  var cf = customFields.filter(field => field.name==fieldName)
+  return cf && cf.length && cf[0].number_value ? cf[0].number_value : "";
 };
 
 const authRoster = (cb) => {
