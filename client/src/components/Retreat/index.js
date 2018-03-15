@@ -3,7 +3,7 @@ import axios from 'axios';
 import {Divider, Header, Loader, Image} from 'semantic-ui-react';
 import DescFormat from '../../utils/StringFormat.js';
 import './index.css';
-import imageFile from './res/img/team-image.JPG';
+import imageFile from './res/img/retreat-image.jpg';
 
 const RetreatSection = (props) => {
   const entries = props.data.filter(entry => entry.section == props.section)
