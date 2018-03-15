@@ -1,20 +1,17 @@
 import axios from 'axios';
 const auth = {
   authenticated: false,
+  knowAuth: false,
   updateAuthentication(cb) {
-    // const getAuth = () => (new Promise(resolve => {
-    //   axios.get('/auth/authenticated').then((res) => {
-    //     resolve(res.data.authenticated);
-    //   });
-    // }));
       axios.get('auth/authenticated')
         .then((res) => {
-          console.log(res.data.authenticated);
           this.authenticated = res.data.authenticated;
           if (this.authenticated) {
-            this.username = res.data.name
+            this.username = res.data.name,
+            this.id = res.data.id
           }
-          cb()
+          this.knowAuth = true;
+          cb();
         });
     // return res.data.authenticated;
   }, // Set to true in development

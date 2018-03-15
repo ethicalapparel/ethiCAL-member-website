@@ -9,6 +9,7 @@ import General from './components/General';
 import auth from './Auth.js';
 import SalesEvents from './components/SalesEvents';
 import Retreat from './components/Retreat';
+import Appreciation from './components/Appreciation';
 import './index.css';
 
 import {
@@ -31,8 +32,9 @@ class Dashboard extends Component {
   render() {
     var {activeItem} = this.state;
     var match = this.props.match;
-    var {username} = auth;
-
+    var username = auth.username;
+    var id = auth.id;
+    console.log(id);
     console.log(username);
     // <div>
     //   <Route path="/home" component={Home}/>
@@ -81,6 +83,28 @@ class Dashboard extends Component {
                 active={activeItem === 'Sales Events'}
               >
                 Sales Events
+              </Menu.Item>
+            </Dropdown.Item>
+
+            <Dropdown.Item as={Link} to={`${match.url}/ideas`}
+                onClick={this.handleItemClick}
+                name='Ideas Thread'
+            >
+              <Menu.Item
+                active={activeItem === 'Ideas Thread'}
+              >
+                Ideas Thread
+              </Menu.Item>
+            </Dropdown.Item>
+
+            <Dropdown.Item as={Link} to={`${match.url}/appreciation`}
+                onClick={this.handleItemClick}
+                name='Appreciation'
+            >
+              <Menu.Item
+                active={activeItem === 'Appreciation'}
+              >
+                Appreciation
               </Menu.Item>
             </Dropdown.Item>
 
@@ -136,6 +160,26 @@ class Dashboard extends Component {
           </Menu.Item>
         </Link>
 
+        <Link to={`${match.url}/ideas`}>
+          <Menu.Item
+            name='Ideas Thread'
+            active={activeItem === 'Ideas Thread'}
+            onClick={this.handleItemClick}
+          >
+            Ideas Thread
+          </Menu.Item>
+        </Link>
+
+        <Link to={`${match.url}/appreciation`}>
+          <Menu.Item
+            name='Appreciation'
+            active={activeItem === 'Appreciation'}
+            onClick={this.handleItemClick}
+          >
+            Appreciation
+          </Menu.Item>
+        </Link>
+
         <Link to={`${match.url}/feedback`}>
           <Menu.Item
             name='Feedback Box'
@@ -157,6 +201,7 @@ class Dashboard extends Component {
         <Route path={`${match.url}/updates`} component={Updates}/>
         <Route path={`${match.url}/general`} component={General}/>
         <Route path={`${match.url}/ideas`} component={Ideas}/>
+        <Route path={`${match.url}/appreciation`} component={Appreciation}/>
         <Route path={`${match.url}/feedback`} component={Feedback}/>
         <Route path={`${match.url}/sales`} component={SalesEvents}/>
       </Container>

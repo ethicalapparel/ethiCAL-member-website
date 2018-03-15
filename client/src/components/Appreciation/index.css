@@ -1,0 +1,27 @@
+/* Ideas thread CSS Goes Here. */
+#form {
+	width: 70%;
+	text-align: center;
+	margin: auto;
+}
+
+#appreciation-container {
+	margin: 10px;
+	width: 50%;
+}
+
+#form-container {
+	background-color: #c8dde1;
+	width: 60%;
+	margin: auto;
+	text-align: center;
+	border-radius: 25px;
+	bottom-padding: 40px;
+	padding: 20px;
+	margin-bottom: 30px;
+	margin-top: 30px;
+}
+
+#appreciation-submitted {
+	margin-bottom: 30px;
+}
