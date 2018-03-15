@@ -14,19 +14,20 @@ class IdeaModal extends Component {
     // API Call to submit feedback
     //console.log(auth.id);
     //if (this.state.comment) {
-    if (this.state.comment.length > 0) {
-      clearInterval(this.countdown);
-      axios.post('/asana/postComment?id=' + this.props.entry.id,
-        {text: this.state.comment});
-      var arrayvar = this.state.data.slice();
-      arrayvar.push({created_at: "just now", text: this.state.comment});
-      this.setState({ data: arrayvar });
-      //this.getData();
-      this.setState({comment: ''});
-      setTimeout(() => {
-        this.countdown = setInterval(() => (this.getData()), 3000);
-      }, 5000)
-    }
+    //if (this.state.comment.length > 0) {
+    clearInterval(this.countdown);
+    var commentText = this.state.comment + "~" + auth.username;
+    axios.post('/asana/postComment?id=' + this.props.entry.id,
+      {text: commentText});
+    var arrayvar = this.state.data.slice();
+    arrayvar.push({created_at: "just now", text: this.state.comment, username: auth.username});
+    this.setState({ data: arrayvar });
+    //this.getData();
+    this.setState({comment: ''});
+    setTimeout(() => {
+      this.countdown = setInterval(() => (this.getData()), 3000);
+    }, 5000)
+  //  }
     //}
     //this.props.prompt();
   };
@@ -53,9 +54,36 @@ class IdeaModal extends Component {
   };
 
   render() {
+    var comments;
+    comments =this.state.data.map((elem) => {
+    var commentArr = elem.text.split("~");
+      var user;
+      var commentText;
+      //console.log(elem);
+      if (elem.username != "Andrew Linxie") {
+        user = elem.username.split(" ")[0];
+        commentText = elem.text;
+      } else {
+        if (commentArr.length > 1) {
+          user = commentArr[commentArr.length - 1].split(" ")[0];
+          console.log(commentArr[0]);
+          commentText = commentArr[0];
+        } else {
+          user = "Andrew";
+          commentText = elem.text;
+        }
+      }
+      console.log(commentText);
+      var date_string = elem.created_at == "just now" ? "just now" : new Date(elem.created_at).toLocaleString();
+
+      return (<div id="idea-comment"> <p> <b> {user + ": "}</b>  {commentText} <b style={{float:"right"}}> {date_string}</b>
+          </p> </div>);
+    });
+
+
     return (
       <Modal trigger={
-          <Button color='blue'>
+          <Button color='green'>
           More Info
           </Button>
         }
@@ -66,8 +94,8 @@ class IdeaModal extends Component {
         <Modal.Content>
         <Modal.Header as='h1'>{this.props.entry.idea}</Modal.Header>
         <Modal.Description>
-          <p>{this.props.entry.description}</p>
-          <div> {this.state.data.map((elem) => (<p> <b> {elem.text} </b> {elem.created_at}</p>))}</div>
+          <p id='idea-description'>{this.props.entry.description}</p>
+           <div> {comments}</div>
           <Form onSubmit={this.comment}>
                 <Form.Field>
                   <Form.Input placeholder='Comment...' name='comment' value={this.state.comment} onChange={this.handleChange}/>
@@ -92,19 +120,19 @@ const IdeaCards = (props) => {
           {entry.memberName}
         </Card.Meta>
         <Card.Description>
-          {entry.description.substring(0,10) + "..."}
+          {entry.description.substring(0,20) + "..."}
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
         <IdeaModal entry={entry}/>
-        <div style={{float: 'right', poition: 'absolute'}}>
-          <Icon name='heart' link> </Icon>
-          {entry.loves}
-        </div>
       </Card.Content>
     </Card>
     )
   );
+  // heart... for another time :( <div style={{float: 'right', poition: 'absolute'}}>
+  //   <Icon name='heart' link> </Icon>
+  //   {entry.loves}
+  // </div>
   const loading = <Loader active/>
   return(
     <Container>

@@ -9,6 +9,7 @@ import General from './components/General';
 import auth from './Auth.js';
 import SalesEvents from './components/SalesEvents';
 import Retreat from './components/Retreat';
+import Appreciation from './components/Appreciation';
 import './index.css';
 
 import {
@@ -111,6 +112,17 @@ class Dashboard extends Component {
             Ideas Thread
           </Menu.Item>
         </Link>
+
+        <Link to={`${match.url}/appreciation`}>
+          <Menu.Item
+            name='Appreciation'
+            active={activeItem === 'Appreciation'}
+            onClick={this.handleItemClick}
+          >
+            Appreciation
+          </Menu.Item>
+        </Link>
+
         <Link to={`${match.url}/feedback`}>
           <Menu.Item
             name='Feedback Box'
@@ -132,6 +144,7 @@ class Dashboard extends Component {
         <Route path={`${match.url}/updates`} component={Updates}/>
         <Route path={`${match.url}/general`} component={General}/>
         <Route path={`${match.url}/ideas`} component={Ideas}/>
+        <Route path={`${match.url}/appreciation`} component={Appreciation}/>
         <Route path={`${match.url}/feedback`} component={Feedback}/>
         <Route path={`${match.url}/sales`} component={SalesEvents}/>
         <Route path={`${match.url}/retreat`} component={Retreat}/>

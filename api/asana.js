@@ -73,11 +73,30 @@ router.get('/ideas', function(req, res, next) {
     });
 });
 
+router.get('/appreciation', function(req, res, next) {
+  client.get('/projects/594530649883438/tasks?opt_expand=notes,created_at,tags,custom_fields')
+    .then(function(cliResponse) {
+      console.log(cliResponse.data.data[0].custom_fields);
+      res.json(
+        cliResponse.data.data.filter(elem => hasTag(elem.tags, "member website"))
+          .map(elem => {
+            return {person: elem.name,
+              description: elem.notes,
+              memberName: getCustomFieldEnum(elem.custom_fields, "Member"),
+              created_at: elem.created_at,
+              id: elem.id
+              };
+            }
+          )
+      );
+    });
+});
+
 /* A list of ideas. */
 /* /projects/432354090717462 */
 router.get('/ideaComments', function(req, res, next) {
   console.log(req.query);
-  var url = '/tasks/' + req.query.id + '/stories/'
+  var url = '/tasks/' + req.query.id + '/stories/?opt_expand=created_by'
   client.get(url)
     .then(function(cliResponse) {
       console.log(cliResponse);
@@ -87,7 +106,8 @@ router.get('/ideaComments', function(req, res, next) {
         .map((elem) => {
           return {
             "created_at": elem.created_at,
-            "text": elem.text
+            "text": elem.text,
+            "username": elem.created_by.name
             };
           }
         )
@@ -178,7 +198,6 @@ router.post('/submitFeedback', function(req, res, next) {
 });
 // "tags":
 //   [{"id": "515807936810709"}]
-/* Submits an Idea.. Doesn't work yet :( */
 router.post('/submitIdea', function(req, res, next) {
   // Received req.body that has the data that is posted
   client.post('/tasks',
@@ -198,6 +217,31 @@ router.post('/submitIdea', function(req, res, next) {
       console.log("Failed..");
       console.log(err.Error);
       var err = new Error("Feedback post didnt work");
+      err.status = 500;
+      next(err);
+      }
+    );
+});
+
+router.post('/submitAppreciation', function(req, res, next) {
+  // Received req.body that has the data that is posted
+  client.post('/tasks',
+    {"data":
+      {"projects": "594530649883438",
+        "name": req.body.name,
+        "notes": req.body.notes,
+        "tags": ["515807936810709"],
+        "custom_fields": {"523249269220982": req.body.enum_id}
+      }
+    })
+    .then(() => {
+      console.log("Success!");
+      res.status(200);
+    })
+    .catch((err) => {
+      console.log("Failed..");
+      console.log(err.Error);
+      var err = new Error("Appreciation post didnt work");
       err.status = 500;
       next(err);
       }
