@@ -7,7 +7,8 @@ import auth from "../../Auth.js";
 class IdeaModal extends Component {
   state = {
       data: [],
-      comment: ""
+      comment: "",
+      data_new: []
   };
 
   comment = () => {
@@ -15,7 +16,7 @@ class IdeaModal extends Component {
     //console.log(auth.id);
     //if (this.state.comment) {
     //if (this.state.comment.length > 0) {
-    clearInterval(this.countdown);
+    //clearInterval(this.countdown);
     var commentText = this.state.comment + "~" + auth.username;
     axios.post('/asana/postComment?id=' + this.props.entry.id,
       {text: commentText});
@@ -24,9 +25,7 @@ class IdeaModal extends Component {
     this.setState({ data: arrayvar });
     //this.getData();
     this.setState({comment: ''});
-    setTimeout(() => {
-      this.countdown = setInterval(() => (this.getData()), 3000);
-    }, 5000)
+    //this.countdown = setInterval(() => (this.getData()), 1000);
   //  }
     //}
     //this.props.prompt();
@@ -36,13 +35,17 @@ class IdeaModal extends Component {
 
   getData = () => {
     axios.get('/asana/ideaComments?id=' + this.props.entry.id)
-      .then((response) => this.setState({data: response.data}));
+      .then((response) => {
+          if (response.data.length >= this.state.data.length) {
+            this.setState({data: response.data});
+          }
+      });
   };
 
 
   modalOpen = () => {
     this.getData();
-    this.countdown = setInterval(()=>this.getData(), 3000);
+    this.countdown = setInterval(()=>this.getData(), 1000);
   }
 
   modalClose = () => {
@@ -178,7 +181,6 @@ class IdeaForm extends Component {
       <div id = 'form-container'>
       <Header as='h1'> Ideas Thread </Header>
       <Header as='h2'> Submit your idea here! </Header>
-
       <div id = 'form'>
         <Form.Field>
           <Form.Input placeholder='Idea' name='idea' value={this.state.idea} onChange={this.handleChange}/>
