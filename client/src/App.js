@@ -41,7 +41,7 @@ class PrivateRoute extends Component {
     knowAuth: false,
   }
 
-  componentDidMount() {
+  componentWillMount() {
     auth.updateAuthentication(() =>
       {
         this.setState({knowAuth: true});
@@ -52,7 +52,12 @@ class PrivateRoute extends Component {
   render() {
     const {component, ...rest} = this.props;
     const Component = component;
-    return this.state.knowAuth ? <Route {...rest} render={props => (
+    console.log(auth.knowAuth);
+    if (!auth.knowAuth) {
+      return <Loader active/>
+    }
+
+    return (<Route {...rest} render={props => (
       auth.authenticated ? (
         <Component {...props}/>
       ) : (
@@ -61,7 +66,17 @@ class PrivateRoute extends Component {
           state: { from: props.location }
         }}/>
       )
-    )}/> : <Loader active/>;
+    )}/>);
+    // return auth.knowAuth ? <Route {...rest} render={props => (
+    //   auth.authenticated ? (
+    //     <Component {...props}/>
+    //   ) : (
+    //     <Redirect to={{
+    //       pathname: '/login',
+    //       state: { from: props.location }
+    //     }}/>
+    //   )
+    // )}/> : <Loader active/>;
   }
 
 }

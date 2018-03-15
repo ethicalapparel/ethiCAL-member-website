@@ -26,7 +26,7 @@ class Feedback extends Component {
       <Grid centered columns={1} style={{marginTop: '20vh'}}>
         <Form onSubmit={this.submit}>
           <Header as='h1'> Give Feedback </Header>
-          <label> pls do not spam </label>
+          <label> Leave feedback for us below! pls do not spam </label>
           <Form.Field>
             <Form.Input placeholder='Feedback' name='feedback' value={this.state.feedback} onChange={this.handleChange}/>
           </Form.Field>

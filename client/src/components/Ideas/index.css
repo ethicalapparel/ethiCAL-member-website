@@ -1,1 +1,47 @@
 /* Ideas thread CSS Goes Here. */
+#form {
+	width: 70%;
+	text-align: center;
+	margin: auto;
+}
+
+#ideas-container {
+	margin: 10px;
+	width: 50%;
+}
+
+#form-container {
+	background-color: #c8dde1;
+	width: 60%;
+	margin: auto;
+	text-align: center;
+	border-radius: 25px;
+	bottom-padding: 40px;
+	padding: 20px;
+	margin-bottom: 30px;
+	margin-top: 30px;
+}
+
+#ideas-submitted {
+	margin-bottom: 30px;
+}
+
+#idea-comment {
+	background-color: #c8dde1;
+	margin: auto;
+	border-radius: 25px;
+	bottom-padding: 40px;
+	padding: 20px;
+	margin: 10px 10px 10px 10px;
+}
+
+.content > .header {
+	text-align: center;
+}
+
+#idea-description {
+	font-size: 1.3em;
+}
+.ui.modal>.content {
+	background: linear-gradient(242.6deg, #F7E3FF 13.55%, rgba(255, 255, 255, 0) 72.1%), linear-gradient(305.88deg, #D0FFC4 3.44%, rgba(255, 255, 255, 0) 85.48%), linear-gradient(133.02deg, #CEEEF2 15.42%, rgba(206, 238, 242, 0) 83.77%);
+}
