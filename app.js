@@ -41,7 +41,8 @@ app.use(session({
   store: new FileStore(),
   secret: 'ethiCAL Number One',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: {maxAge: 432000000}
 }));
 app.use(passport.initialize());
 app.use(passport.session());
