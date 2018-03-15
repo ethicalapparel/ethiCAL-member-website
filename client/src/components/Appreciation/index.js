@@ -72,7 +72,7 @@ class AppreciationForm extends Component {
         <Form.Field>
           <Form.Input placeholder='Member Name' name='person' value={this.state.person} onChange={this.handleChange}/>
         </Form.Field>
-        <Header as='h2'> Because </Header>
+        <Header as='h2'> For </Header>
         <Form.Field>
           <Form.TextArea placeholder='Reason...' name='description' value={this.state.description} onChange={this.handleChange}/>
         </Form.Field>
