@@ -118,6 +118,18 @@ class Dashboard extends Component {
                 Ideas Thread
               </Menu.Item>
             </Dropdown.Item>
+
+            <Dropdown.Item as={Link} to={`${match.url}/appreciation`}
+                onClick={this.handleItemClick}
+                name='Appreciation'
+            >
+              <Menu.Item
+                active={activeItem === 'Appreciation'}
+              >
+                Appreciation
+              </Menu.Item>
+            </Dropdown.Item>
+
             <Dropdown.Item as={Link} to={`${match.url}/feedback`}
                 onClick={this.handleItemClick}
                 name='Feedback Box'
