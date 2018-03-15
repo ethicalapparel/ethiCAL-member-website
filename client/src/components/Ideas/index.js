@@ -83,7 +83,7 @@ class IdeaModal extends Component {
 
 const IdeaCards = (props) => {
   const entries = props.data.map(entry => (
-    <Card centered color='violet'>
+    <Card centered color='#c8dde1'>
       <Card.Content>
         <Card.Header>
           {entry.idea}
@@ -146,16 +146,25 @@ class IdeaForm extends Component {
 
   render () {
     return (<Form onSubmit={this.submit}>
-      <Header as='h1'> Submit your idea here! </Header>
-      <Form.Field>
-        <Form.Input placeholder='Idea' name='idea' value={this.state.idea} onChange={this.handleChange}/>
-      </Form.Field>
 
-      <Form.Field>
-        <Form.TextArea placeholder='Description' name='description' value={this.state.description} onChange={this.handleChange}/>
-      </Form.Field>
+      <div id = 'form-container'>
+      <Header as='h1'> Ideas Thread </Header>
+      <Header as='h2'> Submit your idea here! </Header>
 
-      <Form.Button content='Submit'/>
+      <div id = 'form'>
+        <Form.Field>
+          <Form.Input placeholder='Idea' name='idea' value={this.state.idea} onChange={this.handleChange}/>
+        </Form.Field>
+
+        <Form.Field>
+          <Form.TextArea placeholder='Description' name='description' value={this.state.description} onChange={this.handleChange}/>
+        </Form.Field>
+
+        <Form.Button content='Submit'/>
+      </div>
+
+      </div>
+
       <div>
       {this.state.ideaSubmitted && "Thank you for your submission!"}
       </div>
@@ -185,10 +194,14 @@ class Ideas extends Component {
 
   render() {
     return (
-      <div>
-        <Header as='h1'> Ideas Thread </Header>
-        <IdeaForm prompt={this.getData}/>
-        <IdeaCards data={this.state.data}/>
+      <div as='ideas-container'>
+        <div as='ideas-form'>
+          <IdeaForm prompt={this.getData}/>
+        </div>
+
+        <div as='ideas-submitted'>
+          <IdeaCards data={this.state.data}/>
+        </div>
       </div>
     );
   };
