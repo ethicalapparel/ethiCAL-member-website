@@ -1,36 +1,39 @@
 import React, { Component } from 'react';
-import {Card, Header, Loader, Button, Modal, Container, Form, Icon} from 'semantic-ui-react';
+import {Card, Header, Loader, Button, Modal, Container, Form, Icon, Checkbox} from 'semantic-ui-react';
 import axios from 'axios';
 import './index.css';
 import auth from "../../Auth.js";
 
-
-const AppreciationCards = (props) => {
-  const entries = props.data.map(entry => (
-    <Card centered color='#c8dde1'>
-      <Card.Content>
-        <Card.Header>
-          {entry.person}
-        </Card.Header>
-        <Card.Meta>
-          {entry.memberName}
-        </Card.Meta>
-        <Card.Description>
-          {entry.description}
-        </Card.Description>
-      </Card.Content>
-    </Card>
-    )
-  );
-  const loading = <Loader active/>
-  return(
-    <Container>
-      <Card.Group>
-        {entries && entries.length > 0 ? entries : loading}
-      </Card.Group>
-    </Container>
-  );
-};
+//
+// const AppreciationCards = (props) => {
+//   const entries = props.data.map(entry => (
+//     <Card centered color='#c8dde1'>
+//       <Card.Content>
+//         <Card.Header>
+//           {entry.person}
+//         </Card.Header>
+//         <Card.Meta>
+//           <b>{entry.memberName} </b>
+//         </Card.Meta>
+//         <Card.Meta>
+//           {new Date(entry.created_at).toLocaleDateString()}
+//         </Card.Meta>
+//         <Card.Description>
+//           {entry.description}
+//         </Card.Description>
+//       </Card.Content>
+//     </Card>
+//     )
+//   );
+//   const loading = <Loader active/>
+//   return(
+//     <Container>
+//       <Card.Group>
+//         {entries && entries.length > 0 ? entries : loading}
+//       </Card.Group>
+//     </Container>
+//   );
+// };
 
 // <Modal.Content>
 //   <IdeaModal entry={entry}/>
@@ -44,7 +47,8 @@ class AppreciationForm extends Component {
   state = {
     apprSubmitted: false,
     person: '',
-    description: ''
+    description: '',
+    anonymous: false,
   };
 
 
@@ -52,13 +56,16 @@ class AppreciationForm extends Component {
     // API Call to submit feedback
     //console.log(auth.id);
     if (this.state.person) {
+      var enum_id = auth.id;
+      if (this.state.anonymous) enum_id=false;
       axios.post('/asana/submitAppreciation',
-        {name: this.state.person, notes: this.state.description, enum_id: auth.id});
-      this.setState({apprSubmitted: true, person: '', description: ''});
+        {name: this.state.person, notes: this.state.description, enum_id: enum_id});
+      this.setState({apprSubmitted: true, person: '', description: '', anonymous: false});
+
     }
     //this.props.prompt();
   };
-
+  toggle_anon = () => this.setState({ anonymous: !this.state.anonymous });
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   render () {
@@ -75,6 +82,9 @@ class AppreciationForm extends Component {
         <Header as='h2'> For </Header>
         <Form.Field>
           <Form.TextArea placeholder='Reason...' name='description' value={this.state.description} onChange={this.handleChange}/>
+        </Form.Field>
+        <Form.Field>
+          <Checkbox label='Anonymous' checked={this.state.anonymous} onChange={this.toggle_anon}/>
         </Form.Field>
 
         <Form.Button content='Appreciate!!'/>
@@ -117,7 +127,10 @@ class Appreciation extends Component {
             {entry.person}
           </Card.Header>
           <Card.Meta>
-            {entry.memberName}
+            <b> {entry.memberName} </b>
+          </Card.Meta>
+          <Card.Meta>
+            {new Date(entry.created_at).toLocaleDateString()}
           </Card.Meta>
           <Card.Description>
             {entry.description}

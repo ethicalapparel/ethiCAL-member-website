@@ -31,7 +31,7 @@ router.get('/homeContent', function(req, res, next) {
       res.json(
         cliResponse.data.data.filter(elem => hasTag(elem.tags, "member website"))
           .map(elem => {
-            console.log(elem);
+            //console.log(elem);
             return {
               reminder: elem.name
             };
@@ -56,7 +56,7 @@ router.get('/ideas', function(req, res, next) {
 
   client.get('/projects/432354090717462/tasks?opt_expand=notes,created_at,tags,custom_fields')
     .then(function(cliResponse) {
-      console.log(cliResponse.data.data[0].custom_fields);
+      //console.log(cliResponse.data.data[0].custom_fields);
       res.json(
         cliResponse.data.data.filter(elem => hasTag(elem.tags, "member website"))
           .map(elem => {
@@ -76,7 +76,6 @@ router.get('/ideas', function(req, res, next) {
 router.get('/appreciation', function(req, res, next) {
   client.get('/projects/594530649883438/tasks?opt_expand=notes,created_at,tags,custom_fields')
     .then(function(cliResponse) {
-      console.log(cliResponse.data.data[0].custom_fields);
       res.json(
         cliResponse.data.data.filter(elem => hasTag(elem.tags, "member website"))
           .map(elem => {
@@ -95,11 +94,11 @@ router.get('/appreciation', function(req, res, next) {
 /* A list of ideas. */
 /* /projects/432354090717462 */
 router.get('/ideaComments', function(req, res, next) {
-  console.log(req.query);
+  //console.log(req.query);
   var url = '/tasks/' + req.query.id + '/stories/?opt_expand=created_by'
   client.get(url)
     .then(function(cliResponse) {
-      console.log(cliResponse);
+      //console.log(cliResponse);
       res.json(
         cliResponse.data.data
         .filter((elem) => elem.type == 'comment')
@@ -225,13 +224,20 @@ router.post('/submitIdea', function(req, res, next) {
 
 router.post('/submitAppreciation', function(req, res, next) {
   // Received req.body that has the data that is posted
+  var enum_id;
+  if (req.body.enum_id) {
+    enum_id = req.body.enum_id;
+  } else {
+    //console.log("Anonymous send of appreciation :,)")
+    enum_id = 547075902384780; //anonymous bear enum id
+  }
   client.post('/tasks',
     {"data":
       {"projects": "594530649883438",
         "name": req.body.name,
         "notes": req.body.notes,
         "tags": ["515807936810709"],
-        "custom_fields": {"523249269220982": req.body.enum_id}
+        "custom_fields": {"523249269220982": enum_id}
       }
     })
     .then(() => {
@@ -249,9 +255,9 @@ router.post('/submitAppreciation', function(req, res, next) {
 });
 
 router.post('/postComment', function(req, res, next) {
-  console.log(req.query);
+  //console.log(req.query);
   var url = '/tasks/' + req.query.id + '/stories/'
-  console.log(req.body);
+  //console.log(req.body);
   client.post(url, {"data": {"text": req.body.text}})
     .then(() => {
       console.log("Success!");
@@ -301,7 +307,10 @@ const authRoster = (cb) => {
       cliResponse.data.data.filter(elem => hasTag(elem.tags, "member website"))
         .map(elem => {
           //.console.log(elem.custom_fields);
+          //console.log(getCustomFieldEnum(elem.custom_fields, "Member"));
+          //console.log(getCustomFieldEnumId(elem.custom_fields, "Member"));
           var id = getCustomFieldText(elem.custom_fields, "id");
+          //console.log(id);
           users[id] =  {
             name: getCustomFieldEnum(elem.custom_fields, "Member"),
             id: getCustomFieldText(elem.custom_fields, "id"),
@@ -320,7 +329,7 @@ const loginRoster = (cb) => {
       cliResponse.data.data.filter(elem => hasTag(elem.tags, "member website"))
         .map(elem => {
           //console.log(elem)
-          console.log(elem.custom_fields);
+          // console.log(elem.custom_fields);
           var username = getCustomFieldText(elem.custom_fields, "username");
           users[username] =  {name: getCustomFieldEnum(elem.custom_fields, "Member"),
               id: getCustomFieldText(elem.custom_fields, "id")
