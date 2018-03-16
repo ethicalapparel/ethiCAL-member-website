@@ -15,18 +15,20 @@ class IdeaModal extends Component {
     //console.log(auth.id);
     //if (this.state.comment) {
     //if (this.state.comment.length > 0) {
-    clearInterval(this.countdown);
-    var commentText = this.state.comment + "~" + auth.username;
-    axios.post('/asana/postComment?id=' + this.props.entry.id,
-      {text: commentText});
-    var arrayvar = this.state.data.slice();
-    arrayvar.push({created_at: "just now", text: this.state.comment, username: auth.username});
-    this.setState({ data: arrayvar });
-    //this.getData();
-    this.setState({comment: ''});
-    setTimeout(() => {
-      this.countdown = setInterval(() => (this.getData()), 3000);
-    }, 5000)
+    if (this.state.comment.length > 0) {
+      clearInterval(this.countdown);
+      var commentText = this.state.comment + "~" + auth.username;
+      axios.post('/asana/postComment?id=' + this.props.entry.id,
+        {text: commentText});
+      var arrayvar = this.state.data.slice();
+      arrayvar.push({created_at: "just now", text: this.state.comment, username: auth.username});
+      this.setState({ data: arrayvar });
+      //this.getData();
+      this.setState({comment: ''});
+      setTimeout(() => {
+        this.countdown = setInterval(() => (this.getData()), 3000);
+      }, 5000)
+    }
   //  }
     //}
     //this.props.prompt();
@@ -39,9 +41,12 @@ class IdeaModal extends Component {
       .then((response) => this.setState({data: response.data}));
   };
 
+  componentDidMount() {
+    this.getData();
+  }
 
   modalOpen = () => {
-    this.getData();
+    //this.getData();
     this.countdown = setInterval(()=>this.getData(), 3000);
   }
 
@@ -83,8 +88,8 @@ class IdeaModal extends Component {
 
     return (
       <Modal trigger={
-          <Button color='green'>
-          More Info
+          <Button inverted color='violet'>
+          {"More Info & Comments (" + comments.length +")"}
           </Button>
         }
         onOpen={this.modalOpen}
@@ -97,10 +102,12 @@ class IdeaModal extends Component {
           <p id='idea-description'>{this.props.entry.description}</p>
            <div> {comments}</div>
           <Form onSubmit={this.comment}>
-                <Form.Field>
+            <Form.Group fluid>
+                <Form.Field width={13}>
                   <Form.Input placeholder='Comment...' name='comment' value={this.state.comment} onChange={this.handleChange}/>
                 </Form.Field>
-                <Form.Button content='Comment!'/>
+                <Form.Button content='Comment!' width={2}/>
+            </Form.Group>
           </Form>
         </Modal.Description>
       </Modal.Content>
@@ -110,6 +117,7 @@ class IdeaModal extends Component {
 
 
 const IdeaCards = (props) => {
+
   const entries = props.data.map(entry => (
     <Card centered color='#c8dde1'>
       <Card.Content>
@@ -117,10 +125,13 @@ const IdeaCards = (props) => {
           {entry.idea}
         </Card.Header>
         <Card.Meta>
-          {entry.memberName}
+          <b>{entry.memberName}</b>
+        </Card.Meta>
+        <Card.Meta>
+          {new Date(entry.created_at).toLocaleDateString()}
         </Card.Meta>
         <Card.Description>
-          {entry.description.substring(0,20) + "..."}
+          {entry.description.substring(0,30) + "..."}
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
