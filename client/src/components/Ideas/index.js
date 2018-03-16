@@ -16,8 +16,8 @@ class IdeaModal extends Component {
     //console.log(auth.id);
     //if (this.state.comment) {
     //if (this.state.comment.length > 0) {
-    if (this.state.comment.length > 0) {
-      clearInterval(this.countdown);
+    //if (this.state.comment.length > 0) {
+    //  clearInterval(this.countdown);
       var commentText = this.state.comment + "~" + auth.username;
       axios.post('/asana/postComment?id=' + this.props.entry.id,
         {text: commentText});
@@ -26,10 +26,10 @@ class IdeaModal extends Component {
       this.setState({ data: arrayvar });
       //this.getData();
       this.setState({comment: ''});
-      setTimeout(() => {
-        this.countdown = setInterval(() => (this.getData()), 3000);
-      }, 5000)
-    }
+      // setTimeout(() => {
+      //   this.countdown = setInterval(() => (this.getData()), 3000);
+      // }, 5000)
+    //}
   //  }
     //}
     //this.props.prompt();
