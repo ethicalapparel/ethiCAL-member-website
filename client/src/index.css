@@ -40,7 +40,7 @@ h3.ui.header {
 
 @media only screen and (max-width: 768px) {
     #dashboard-container {
-        width: 100%;
+        width: 90%;
     }
     #updates-list {
         width: 90%;
@@ -54,5 +54,11 @@ h3.ui.header {
     }
     .information-bullets div div {
         padding: 10px;
+    }
+    .ui[class*="center aligned"].container {
+        margin: 0!important;
+    }
+    #form-container {
+        width: 290px;
     }
 }
