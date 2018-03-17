@@ -1,5 +1,9 @@
 /*Dashboard CSS*/
 
+body {
+    background-attachment: fixed;
+}
+
 #dashboard-container {
 	background: #c8dde1;
 	width: 70%;
@@ -32,4 +36,23 @@
 
 h3.ui.header {
 	color: white;
+}
+
+@media only screen and (max-width: 768px) {
+    #dashboard-container {
+        width: 100%;
+    }
+    #updates-list {
+        width: 90%;
+    }
+    #updates-list ul {
+        width: 100%;
+    }
+    .main-header {
+        width: 100%;
+        margin-top: 0!important;
+    }
+    .information-bullets div div {
+        padding: 10px;
+    }
 }
