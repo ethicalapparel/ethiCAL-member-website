@@ -10,6 +10,7 @@ import auth from './Auth.js';
 import SalesEvents from './components/SalesEvents';
 import Retreat from './components/Retreat';
 import Appreciation from './components/Appreciation';
+import Inventory from './components/Inventory';
 import './index.css';
 
 import {
@@ -204,6 +205,7 @@ class Dashboard extends Component {
         <Route path={`${match.url}/appreciation`} component={Appreciation}/>
         <Route path={`${match.url}/feedback`} component={Feedback}/>
         <Route path={`${match.url}/sales`} component={SalesEvents}/>
+        <Route path={`${match.url}/inventory`} component={Inventory}/>
       </Container>
       </div>
 

@@ -14,6 +14,7 @@ var asana = require('./api/asana').asana;
 var loginRoster = require('./api/asana.js').loginRoster;
 var authRoster = require('./api/asana.js').authRoster;
 var auth = require('./api/auth');
+var square = require('./api/square');
 
 var app = express();
 
@@ -115,6 +116,7 @@ function loggedIn(req, res, next) {
 
 app.use('/asana', loggedIn, asana);
 app.use('/auth', auth);
+app.use('/square', square);
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
