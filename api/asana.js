@@ -15,8 +15,19 @@ var client = axios.create({
 router.get('/calendar', function(req, res, next) {
   if(req.isAuthenticated()) {
     console.log("Asana authenticated!");
-    client.get('/projects/509572030520060/tasks?opt_expand=due_on')
+    client.get('/projects/509572030520060/tasks?opt_expand=due_on,custom_fields')
       .then(function(cliResponse) {
+        cliResponse.data.data.map(function(a) {
+          a["title"] = a["name"];
+          var d = new Date(a["due_on"]);
+          d.setDate(d.getDate() + 1)
+          a["start"] = d;
+          a["end"] = d;
+          a["duration"] = getCustomFieldNumber(a.custom_fields, "Duration (hours)");
+          delete a.name;
+          delete a.due_on;
+          delete a.custom_fields;
+        })
         res.json(cliResponse.data.data);
       });
   } else {
@@ -63,7 +74,7 @@ router.get('/ideas', function(req, res, next) {
             return {idea: elem.name,
               description: elem.notes,
               memberName: getCustomFieldEnum(elem.custom_fields, "Member"),
-              loves: getCustomFieldNum(elem.custom_fields, "Loves"),
+              loves: getCustomFieldNumber(elem.custom_fields, "Loves"),
               created_at: elem.created_at,
               id: elem.id
               };
@@ -294,10 +305,9 @@ const getCustomFieldText = (customFields, fieldName) => {
   return cf && cf.length && cf[0].text_value ? cf[0].text_value : "";
 };
 
-
-const getCustomFieldNum = (customFields, fieldName) => {
+const getCustomFieldNumber = (customFields, fieldName) => {
   var cf = customFields.filter(field => field.name==fieldName)
-  return cf && cf.length && cf[0].number_value ? cf[0].number_value : undefined;
+  return cf && cf.length && cf[0].number_value ? cf[0].number_value : "";
 };
 
 const authRoster = (cb) => {

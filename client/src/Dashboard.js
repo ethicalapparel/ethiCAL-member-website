@@ -53,6 +53,18 @@ class Dashboard extends Component {
               Home
             </Menu.Item>
             </Dropdown.Item>
+
+            <Dropdown.Item as ={Link} to={`${match.url}/calendar`}
+                onClick={this.handleItemClick}
+                name='Calendar'
+            >
+              <Menu.Item
+                active={activeItem === 'Calendar'}
+              >
+                Calendar
+              </Menu.Item>
+            </Dropdown.Item>
+
             <Dropdown.Item as ={Link} to={`${match.url}/updates`}
                 onClick={this.handleItemClick}
                 name='Team Updates'
@@ -130,6 +142,16 @@ class Dashboard extends Component {
         </Menu.Item>
         </Link>
 
+        <Link to={`${match.url}/calendar`}>
+          <Menu.Item
+            name='Calendar'
+            active={activeItem === 'Calendar'}
+            onClick={this.handleItemClick}
+          >
+            Calendar
+          </Menu.Item>
+        </Link>
+
         <Link to={`${match.url}/updates`}>
           <Menu.Item
             name='Team Updates'
@@ -149,16 +171,7 @@ class Dashboard extends Component {
             General Info
           </Menu.Item>
         </Link>
-        
-        <Link to={`${match.url}/calendar`}>
-          <Menu.Item
-            name='Calendar'
-            active={activeItem === 'Calendar'}
-            onClick={this.handleItemClick}
-          >
-            Calendar
-          </Menu.Item>
-        </Link>
+
 
         <Link to={`${match.url}/sales`}>
           <Menu.Item
