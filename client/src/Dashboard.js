@@ -149,6 +149,16 @@ class Dashboard extends Component {
             General Info
           </Menu.Item>
         </Link>
+        
+        <Link to={`${match.url}/calendar`}>
+          <Menu.Item
+            name='Calendar'
+            active={activeItem === 'Calendar'}
+            onClick={this.handleItemClick}
+          >
+            Calendar
+          </Menu.Item>
+        </Link>
 
         <Link to={`${match.url}/sales`}>
           <Menu.Item
