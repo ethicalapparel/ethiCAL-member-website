@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var axios = require('axios');
-const SQUARE_AUTH_HEADER = "Bearer sq0atp-30xZo2FzSY_gpcI4ovgLAw";
+const SQUARE_AUTH_HEADER = "Bearer " + process.env.SQUARE_PAT;
 
 var client = axios.create({
     baseURL: 'https://connect.squareup.com/v1',
