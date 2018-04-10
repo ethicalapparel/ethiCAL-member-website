@@ -119,6 +119,17 @@ class Dashboard extends Component {
                 Feedback Box
               </Menu.Item>
             </Dropdown.Item>
+
+            <Dropdown.Item as={Link} to={`${match.url}/inventory`}
+                onClick={this.handleItemClick}
+                name='Inventory'
+            >
+              <Menu.Item
+                active={activeItem === 'Inventory'}
+              >
+                Inventory
+              </Menu.Item>
+            </Dropdown.Item>
         </Dropdown.Menu>
       </Responsive>
       <Responsive minWidth={768} as={Menu}  secondary size='large' pointing fixed>
@@ -188,6 +199,16 @@ class Dashboard extends Component {
             onClick={this.handleItemClick}
           >
             Feedback Box
+          </Menu.Item>
+        </Link>
+
+        <Link to={`${match.url}/inventory`}>
+          <Menu.Item
+            name='Inventory'
+            active={activeItem === 'Inventory'}
+            onClick={this.handleItemClick}
+          >
+            Inventory
           </Menu.Item>
         </Link>
         <Menu.Menu position='right'>

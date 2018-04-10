@@ -9,7 +9,7 @@ var client = axios.create({
     headers: {'Authorization': SQUARE_AUTH_HEADER, 'Content-Type': 'application/json'},
 });
 
-router.get('/inventory', function(req, res, next) {
+router.get('/items', function(req, res, next) {
     items = {};
     client.get('/5M3M8S410TED1/items')
         .then(function(cliResponse) {
@@ -21,14 +21,14 @@ router.get('/inventory', function(req, res, next) {
                     }
                 })
             })
-            client.get('/5M3M8S410TED1/inventory') 
-                .then(function(cliResponse) {
-                    cliResponse.data.forEach(function(variation) {
-                        items[variation.variation_id].quantity = variation.quantity_on_hand;
-                    })
-                    console.log(items);
-                    res.json(items);
-                })
+            res.json(items);
+        })
+})
+
+router.get('/inventory', function(req, res, next) {
+    client.get('/5M3M8S410TED1/inventory') 
+        .then(function(cliResponse) {
+            res.json(cliResponse.data);
         })
 })
 
