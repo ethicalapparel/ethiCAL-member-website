@@ -10,6 +10,7 @@ import auth from './Auth.js';
 import SalesEvents from './components/SalesEvents';
 import Retreat from './components/Retreat';
 import Appreciation from './components/Appreciation';
+import Inventory from './components/Inventory';
 import './index.css';
 
 import {
@@ -98,6 +99,17 @@ class Dashboard extends Component {
               </Menu.Item>
             </Dropdown.Item>
 
+            <Dropdown.Item as={Link} to={`${match.url}/inventory`}
+                onClick={this.handleItemClick}
+                name='Inventory'
+            >
+              <Menu.Item
+                active={activeItem === 'Inventory'}
+              >
+                Inventory
+              </Menu.Item>
+            </Dropdown.Item>
+
             <Dropdown.Item as={Link} to={`${match.url}/ideas`}
                 onClick={this.handleItemClick}
                 name='Ideas Thread'
@@ -130,6 +142,7 @@ class Dashboard extends Component {
                 Feedback Box
               </Menu.Item>
             </Dropdown.Item>
+
         </Dropdown.Menu>
       </Responsive>
       <Responsive minWidth={768} as={Menu}  secondary size='large' pointing fixed>
@@ -183,6 +196,16 @@ class Dashboard extends Component {
           </Menu.Item>
         </Link>
 
+        <Link to={`${match.url}/inventory`}>
+          <Menu.Item
+            name='Inventory'
+            active={activeItem === 'Inventory'}
+            onClick={this.handleItemClick}
+          >
+            Inventory
+          </Menu.Item>
+        </Link>
+
         <Link to={`${match.url}/ideas`}>
           <Menu.Item
             name='Ideas Thread'
@@ -212,6 +235,7 @@ class Dashboard extends Component {
             Feedback Box
           </Menu.Item>
         </Link>
+
         <Menu.Menu position='right'>
           <Menu.Item>
             {username}
@@ -227,6 +251,7 @@ class Dashboard extends Component {
         <Route path={`${match.url}/appreciation`} component={Appreciation}/>
         <Route path={`${match.url}/feedback`} component={Feedback}/>
         <Route path={`${match.url}/sales`} component={SalesEvents}/>
+        <Route path={`${match.url}/inventory`} component={Inventory}/>
       </Container>
       </div>
 
