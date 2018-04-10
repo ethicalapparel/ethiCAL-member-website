@@ -1,0 +1,27 @@
+th, td {
+    padding: 10px;
+}
+
+.inventory-table {
+    margin: auto;
+    width: 500px;
+}
+
+.search-input {
+    width: 200px;
+    padding: 6px;
+    border: 2px solid white;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+    .inventory-table {
+        width: 100%;
+    }
+    
+    .search-input {
+        width: 70%;
+    }
+}
