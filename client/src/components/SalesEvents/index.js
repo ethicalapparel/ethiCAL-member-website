@@ -4,6 +4,7 @@ import {Divider, Header, Loader, Image} from 'semantic-ui-react';
 import DescFormat from '../../utils/StringFormat.js'
 import './index.css';
 import imageFile from './res/img/sales-image.jpg';
+import AsanaImage from '../../utils/AsanaImage.js';
 // {entry.description.split("\n").map(line => <p> {line} </p>)}
 const SalesInfo = (props) => {
   const entries = props.data.map(entry => (
@@ -11,6 +12,7 @@ const SalesInfo = (props) => {
       <div>
         <Header as='h2'> {entry.name} </Header>
         <DescFormat text={entry.description}/>
+        {entry.photo ? <AsanaImage id={entry.id}/> : null}
       </div>
     </div>
     )
@@ -51,7 +53,7 @@ class SalesEvents extends Component {
           </div>
           <Header as='h1' className='main-header'> Sales Event Info </Header>
         </div>
-        
+
         <div className="information-bullets">
           <SalesInfo data={this.state.data}/>
         </div>
