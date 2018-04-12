@@ -45,6 +45,7 @@ export default class Inventory extends React.Component {
                 <th className="item-col">Item</th>
                 <th className="size-col">Size</th>
                 <th className="quantity-col">Quantity</th>
+                <th className="price">Price</th>
             </tr>
         );
         for (var item_id in this.state.items) {
@@ -54,7 +55,8 @@ export default class Inventory extends React.Component {
                     <tr key={item_id}>
                         <td className="item-col">{item.name}</td>
                         <td className="size-col">{item.variation}</td>
-                        <td className="quantity-col">{item.quantity}</td>        
+                        <td className="quantity-col">{item.quantity}</td>
+                        <td className="price-col">${item.price / 100}</td>
                     </tr>
                 );
             }
