@@ -17,7 +17,8 @@ router.get('/items', function(req, res, next) {
                 item.variations.forEach(function(variation) {
                     items[variation.id] = {
                         name: item.name,
-                        variation: variation.name
+                        variation: variation.name,
+                        price: variation.price_money.amount
                     }
                 })
             })
