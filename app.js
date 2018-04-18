@@ -41,7 +41,8 @@ app.use(session({
   store: new FileStore(),
   secret: 'ethiCAL Number One',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: {maxAge: 432000000}
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -58,8 +59,8 @@ passport.use(new LocalStrategy(
     // for now, we'll just pretend we found that it was users[0]
     loginRoster((roster) => {
         console.log(`User: ${username}`);
-        console.log(roster);
-        if (roster[username]) {
+        //console.log(roster); for debugging
+        if (roster[username] || roster[username.replace("@berkeley.edu", "")]) {
           if(!ETHICAL_SECRET || password == ETHICAL_SECRET) {
             var user = roster[username]
             console.log('Local strategy returned true');
@@ -88,7 +89,7 @@ passport.deserializeUser((id, done) => {
   console.log('Inside deserializeUser callback')
   console.log(`The user id passport saved in the session file store is: ${id}`)
   authRoster((roster) => {
-      console.log(roster);
+      // console.log(roster); for debugging
       if (roster[id]) {
         user = roster[id]
         console.log('Local strategy returned true')
@@ -103,6 +104,7 @@ passport.deserializeUser((id, done) => {
 //
 app.use(express.static(path.join(__dirname, 'client/build')));
 
+
 function loggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         next();
@@ -113,6 +115,10 @@ function loggedIn(req, res, next) {
 
 app.use('/asana', loggedIn, asana);
 app.use('/auth', auth);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

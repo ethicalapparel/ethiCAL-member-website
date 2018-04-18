@@ -63,5 +63,6 @@ class Calendar extends Component {
     );
   };
 };
+// <h1> {JSON.stringify(this.state.data)} </h1>
 
 export default Calendar;

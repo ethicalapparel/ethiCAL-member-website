@@ -9,6 +9,7 @@ import General from './components/General';
 import auth from './Auth.js';
 import SalesEvents from './components/SalesEvents';
 import Retreat from './components/Retreat';
+import Appreciation from './components/Appreciation';
 import './index.css';
 
 import {
@@ -31,8 +32,9 @@ class Dashboard extends Component {
   render() {
     var {activeItem} = this.state;
     var match = this.props.match;
-    var {username} = auth;
-
+    var username = auth.username;
+    var id = auth.id;
+    console.log(id);
     console.log(username);
     // <div>
     //   <Route path="/home" component={Home}/>
@@ -51,9 +53,10 @@ class Dashboard extends Component {
               Home
             </Menu.Item>
             </Dropdown.Item>
-            <Dropdown.Item as={Link} to={`${match.url}/calendar`}
-                name='Calendar'
+
+            <Dropdown.Item as ={Link} to={`${match.url}/calendar`}
                 onClick={this.handleItemClick}
+                name='Calendar'
             >
               <Menu.Item
                 active={activeItem === 'Calendar'}
@@ -84,17 +87,6 @@ class Dashboard extends Component {
               </Menu.Item>
             </Dropdown.Item>
 
-            <Dropdown.Item as={Link} to={`${match.url}/retreat`}
-                onClick={this.handleItemClick}
-                name='Retreat Info'
-            >
-              <Menu.Item
-                active={activeItem === 'Retreat Info'}
-              >
-                Retreat Info
-              </Menu.Item>
-            </Dropdown.Item>
-
             <Dropdown.Item as={Link} to={`${match.url}/sales`}
                 onClick={this.handleItemClick}
                 name='Sales Events'
@@ -116,6 +108,18 @@ class Dashboard extends Component {
                 Ideas Thread
               </Menu.Item>
             </Dropdown.Item>
+
+            <Dropdown.Item as={Link} to={`${match.url}/appreciation`}
+                onClick={this.handleItemClick}
+                name='Appreciation'
+            >
+              <Menu.Item
+                active={activeItem === 'Appreciation'}
+              >
+                Appreciation
+              </Menu.Item>
+            </Dropdown.Item>
+
             <Dropdown.Item as={Link} to={`${match.url}/feedback`}
                 onClick={this.handleItemClick}
                 name='Feedback Box'
@@ -137,7 +141,6 @@ class Dashboard extends Component {
           Home
         </Menu.Item>
         </Link>
-
 
         <Link to={`${match.url}/calendar`}>
           <Menu.Item
@@ -169,15 +172,6 @@ class Dashboard extends Component {
           </Menu.Item>
         </Link>
 
-        <Link to={`${match.url}/retreat`}>
-          <Menu.Item
-            name='Retreat Info'
-            active={activeItem === 'Retreat Info'}
-            onClick={this.handleItemClick}
-          >
-            Retreat Info
-          </Menu.Item>
-        </Link>
 
         <Link to={`${match.url}/sales`}>
           <Menu.Item
@@ -198,6 +192,17 @@ class Dashboard extends Component {
             Ideas Thread
           </Menu.Item>
         </Link>
+
+        <Link to={`${match.url}/appreciation`}>
+          <Menu.Item
+            name='Appreciation'
+            active={activeItem === 'Appreciation'}
+            onClick={this.handleItemClick}
+          >
+            Appreciation
+          </Menu.Item>
+        </Link>
+
         <Link to={`${match.url}/feedback`}>
           <Menu.Item
             name='Feedback Box'
@@ -219,13 +224,34 @@ class Dashboard extends Component {
         <Route path={`${match.url}/updates`} component={Updates}/>
         <Route path={`${match.url}/general`} component={General}/>
         <Route path={`${match.url}/ideas`} component={Ideas}/>
+        <Route path={`${match.url}/appreciation`} component={Appreciation}/>
         <Route path={`${match.url}/feedback`} component={Feedback}/>
         <Route path={`${match.url}/sales`} component={SalesEvents}/>
-        <Route path={`${match.url}/retreat`} component={Retreat}/>
       </Container>
       </div>
 
     );
+/** TO BE ADDED LATER
+    <Link to={`${match.url}/ideas`}>
+      <Menu.Item
+        name='Ideas Thread'
+        active={activeItem === 'Ideas Thread'}
+        onClick={this.handleItemClick}
+      >
+        Ideas Thread
+      </Menu.Item>
+    </Link>
+
+    <Link to={`${match.url}/calendar`}>
+      <Menu.Item
+        name='Calendar'
+        active={activeItem === 'Calendar'}
+        onClick={this.handleItemClick}
+      >
+        Calendar
+      </Menu.Item>
+    </Link>
+*/
   }
 }
 
@@ -251,7 +277,15 @@ class Home extends Component {
 
     var updates;
     if (this.state.data && this.state.data.length > 0) {
-      updates = <ul> {this.state.data.map(elem => <li> {elem.reminder} </li>)} </ul>;
+
+      updates = <ul> {this.state.data.map(elem => {
+        var convertLinks = elem.reminder.split(" ")
+          .map((word) => {
+            return word.includes("https://") || word.includes("http://") ?
+             <a href={word} target="_blank"> {word} </a> : " " + word;
+          });
+        return <li> {convertLinks} </li>;
+      })} </ul>;
     } else {
       updates = <Loader active />
     }
@@ -264,7 +298,7 @@ class Home extends Component {
             <div id = 'content'>
               <Header as='h3' content="Here's watts up:"/>
               <div id = 'updates-list' style={{fontWeight: 'normal', margin: 'auto'}}>
-                {updates}   
+                {updates}
               </div>
             </div>
       </div>
