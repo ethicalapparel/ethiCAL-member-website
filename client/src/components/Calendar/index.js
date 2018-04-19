@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './index.css';
 import BigCalendar from 'react-big-calendar'
+import {Loader} from 'semantic-ui-react';
 import moment from 'moment'
 
-const ASANA_AUTH_HEADER = "Bearer " + process.env.ASANA_PAT;
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
 
 
