@@ -165,7 +165,9 @@ router.get('/sales', function(req, res, next) {
           .map(elem => {
             //console.log(elem);
             return {name: elem.name,
-              description: elem.notes
+              description: elem.notes,
+              photo: hasTag(elem.tags, "photo"),
+              id: elem.id
             };
           })
       );
