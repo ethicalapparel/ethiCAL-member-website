@@ -42,6 +42,7 @@ class Dashboard extends Component {
     // </div>
     return (
       <Container textAlign='center' fluid>
+        {"(EthiCAL Member's Website Under Construction)"}
         <Inventory/>
       </Container>);
     //   <div>
