@@ -90,6 +90,3 @@ export default class Inventory extends React.Component {
         )
     }
 }
-
-
-

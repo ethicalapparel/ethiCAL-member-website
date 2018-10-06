@@ -38,34 +38,34 @@ class App extends Component {
 
 class PrivateRoute extends Component {
   state = {
-    knowAuth: false,
+    //knowAuth: false,
   }
 
-  componentWillMount() {
-    auth.updateAuthentication(() =>
-      {
-        this.setState({knowAuth: true});
-      }
-    );
-  }
+  // componentWillMount() {
+  //   auth.updateAuthentication(() =>
+  //     {
+  //       this.setState({knowAuth: true});
+  //     }
+  //   );
+  // }
 
   render() {
     const {component, ...rest} = this.props;
     const Component = component;
-    console.log(auth.knowAuth);
-    if (!auth.knowAuth) {
-      return <Loader active/>
-    }
+    // console.log(auth.knowAuth);
+    // if (!auth.knowAuth) {
+    //   return <Loader active/>
+    // }
 
     return (<Route {...rest} render={props => (
-      auth.authenticated ? (
+      // auth.authenticated ? (
         <Component {...props}/>
-      ) : (
-        <Redirect to={{
-          pathname: '/login',
-          state: { from: props.location }
-        }}/>
-      )
+      // ) : (
+      //   <Redirect to={{
+      //     pathname: '/login',
+      //     state: { from: props.location }
+      //   }}/>
+      // )
     )}/>);
     // return auth.knowAuth ? <Route {...rest} render={props => (
     //   auth.authenticated ? (
